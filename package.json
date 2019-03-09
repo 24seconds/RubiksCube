@@ -1,0 +1,50 @@
+{
+  "name": "rubiks-cube",
+  "version": "1.0.0",
+  "description": "Rubiks' Cube",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run test:eslint",
+    "test:eslint": "eslint src/",
+    "build": "webpack",
+    "start": "webpack-dev-server --config webpack.config.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/24seconds/RubiksCube.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/24seconds/RubiksCube/issues"
+  },
+  "eslintConfig": {
+    "globals": {
+      "window": true,
+      "browser": true,
+      "node": true
+    },
+    "extends": "airbnb"
+  },
+  "homepage": "https://github.com/24seconds/RubiksCube#readme",
+  "devDependencies": {
+    "@babel/core": "^7.3.4",
+    "@babel/preset-env": "^7.3.4",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^8.0.5",
+    "babel-preset-env": "^1.7.0",
+    "css-loader": "^2.1.1",
+    "eslint": "^5.3.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-jsx-a11y": "^6.2.1",
+    "eslint-plugin-react": "^7.12.4",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "html-webpack-plugin": "^3.2.0",
+    "style-loader": "^0.23.1",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.2.3",
+    "webpack-dev-server": "^3.2.1"
+  }
+}
