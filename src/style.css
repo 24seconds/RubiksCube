@@ -1,0 +1,103 @@
+:root {
+    --piece-width: 100px;
+    --piece-height: 100px;
+    --piece-length: 100px;
+}
+
+h1 {
+    color: rgb(44, 48, 116);
+}
+
+.buffer {
+  height: 100px;
+}
+
+.cube-container {
+  display: flex;
+  width: 100%;
+  height: 400px;
+  justify-content: center;
+  background-color: rgba(139, 0, 0, 0.144);
+  transform-style: preserve-3d;
+  transform: rotate3d(1, 0, 0, -32deg) rotate3d(0, 1, 0, 40deg);
+}
+
+.cube-canvas {
+  width: 300px;
+  height: 300px;
+  position: relative;
+  transform-style: preserve-3d;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 174, 0, 0.637);
+}
+
+.minus-x {
+  transform: translate3d(calc(-1 * var(--piece-length)), 0px, 0px);
+}
+
+.minus-y {
+  transform: translate3d(0px, calc(-1 * var(--piece-length)), 0px);
+
+}
+
+.minus-z {
+  transform: translate3d(0px, 0px, calc(-1 * var(--piece-length)));
+
+}
+
+.zero {
+  transform: translate3d(0px, 0px, 0px);
+}
+
+.plus-x {
+  transform: translate3d(var(--piece-length), 0px, 0px);
+}
+
+.plus-y {
+  transform: translate3d(0px, var(--piece-length), 0px);
+}
+
+.plus-z {
+  transform: translate3d(0px, 0px, var(--piece-length));
+}
+
+.face {
+    display: block;
+    position: absolute;
+    width: var(--piece-width);
+    height: var(--piece-height);
+    line-height: 100px;
+    text-align: center;
+}
+
+.front {
+    transform: rotate3d(1, 0, 0, 90deg) translate3d(0, 0, -50px);
+    background-color: rgba(255, 255, 0, 0.3);
+}
+
+.back {
+    transform: rotate3d(1, 0, 0, 90deg) translate3d(0, 0, 50px);
+    background-color: rgba(0, 81, 255, 0.3);
+}
+
+.up {
+    transform: translate3d(0, 0, 50px);
+    background-color: rgba(6, 121, 25, 0.3);
+}
+
+.down {
+    transform: translate3d(0, 0, -50px);
+    background-color: rgba(6, 121, 25, 0.3);
+}
+
+.left {
+    background-color: rgba(255, 127, 80, 0.3);
+    transform: rotate3d(0,1,0,90deg) translate3d(0, 0, -50px);
+}
+
+.right {
+    background-color: rgba(199, 7, 7, 0.3);
+    transform: rotate3d(0,1,0,90deg) translate3d(0, 0, 50px);
+}
