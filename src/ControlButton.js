@@ -40,7 +40,7 @@ export default class ControlButton {
     );
 
     requestAnimationFrame(this.rotationCallback.bind(this,
-      filteredCubePiceArray, 0, keyCodeToRotation[keyCodeString], keyCodeString));
+      filteredCubePiceArray, 0, keyCodeToRotation(15)[keyCodeString], keyCodeString));
   }
 
   rotationCallback(array, iteration, rotation, keyCodeString) {
@@ -54,7 +54,7 @@ export default class ControlButton {
     });
 
     requestAnimationFrame(
-      this.rotationCallback.bind(this, array, iteration + 5, rotation, keyCodeString),
+      this.rotationCallback.bind(this, array, iteration + 15, rotation, keyCodeString),
     );
   }
 

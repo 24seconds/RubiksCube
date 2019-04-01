@@ -35,14 +35,14 @@ export const keyCodeToString = {
   66: 'B',
 };
 
-export const keyCodeToRotation = {
-  L: { x: 0, y: 0, z: -5 },
-  R: { x: 0, y: 0, z: 5 },
-  U: { x: 0, y: -5, z: 0 },
-  D: { x: 0, y: 5, z: 0 },
-  F: { x: -5, y: 0, z: 0 },
-  B: { x: 5, y: 0, z: 0 },
-};
+export const keyCodeToRotation = rotation => ({
+  L: { x: 0, y: 0, z: -rotation },
+  R: { x: 0, y: 0, z: rotation },
+  U: { x: 0, y: -rotation, z: 0 },
+  D: { x: 0, y: rotation, z: 0 },
+  F: { x: -rotation, y: 0, z: 0 },
+  B: { x: rotation, y: 0, z: 0 },
+});
 
 export const getRotationcondition = (cubePiece, keyString) => {
   switch (keyString) {
