@@ -13,13 +13,15 @@ h1 {
 }
 
 .cube-container {
-  display: flex;
   width: 100%;
   height: 400px;
+  margin: 0 0 100px 0;
+
+  display: flex;
   justify-content: center;
-  background-color: rgba(139, 0, 0, 0.144);
+
   transform-style: preserve-3d;
-  transform: rotate3d(1, 0, 0, -32deg) rotate3d(0, 1, 0, 40deg);
+  transform: rotate3d(1, 0, 0, -32deg) rotate3d(0, 1, 0, 45deg);
 }
 
 .cube-canvas {
@@ -30,37 +32,15 @@ h1 {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(255, 174, 0, 0.637);
 }
 
-.minus-x {
-  transform: translate3d(calc(-1 * var(--piece-length)), 0px, 0px);
-}
-
-.minus-y {
-  transform: translate3d(0px, calc(-1 * var(--piece-length)), 0px);
-
-}
-
-.minus-z {
-  transform: translate3d(0px, 0px, calc(-1 * var(--piece-length)));
-
-}
-
-.zero {
-  transform: translate3d(0px, 0px, 0px);
-}
-
-.plus-x {
-  transform: translate3d(var(--piece-length), 0px, 0px);
-}
-
-.plus-y {
-  transform: translate3d(0px, var(--piece-length), 0px);
-}
-
-.plus-z {
-  transform: translate3d(0px, 0px, var(--piece-length));
+.wrapper {
+  display: block;
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
 }
 
 .face {
@@ -72,32 +52,8 @@ h1 {
     text-align: center;
 }
 
-.front {
-    transform: rotate3d(1, 0, 0, 90deg) translate3d(0, 0, -50px);
-    background-color: rgba(255, 255, 0, 0.3);
-}
-
-.back {
-    transform: rotate3d(1, 0, 0, 90deg) translate3d(0, 0, 50px);
-    background-color: rgba(0, 81, 255, 0.3);
-}
-
-.up {
-    transform: translate3d(0, 0, 50px);
-    background-color: rgba(6, 121, 25, 0.3);
-}
-
-.down {
-    transform: translate3d(0, 0, -50px);
-    background-color: rgba(6, 121, 25, 0.3);
-}
-
-.left {
-    background-color: rgba(255, 127, 80, 0.3);
-    transform: rotate3d(0,1,0,90deg) translate3d(0, 0, -50px);
-}
-
-.right {
-    background-color: rgba(199, 7, 7, 0.3);
-    transform: rotate3d(0,1,0,90deg) translate3d(0, 0, 50px);
+.control-button {
+  width: 100vw;
+  height: 100px;
+  background-color: #0077C8;
 }
