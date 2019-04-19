@@ -62,3 +62,101 @@ export const getRotationcondition = (cubePiece, keyString) => {
       return false;
   }
 };
+
+export const getRotationAndPosition = (cubePiece, _theta, keyCodeString) => {
+  const { x: currentX, y: currentY, z: currentZ } = cubePiece.currentPosition;
+  const degToRad = Math.PI / 180;
+
+  const theta = ['F', 'R', 'U'].includes(keyCodeString) ? -1 * _theta : _theta;
+  const cos = Math.cos(theta * degToRad);
+  const sin = Math.sin(theta * degToRad);
+
+  switch (keyCodeString) {
+    case 'L': {
+      const newPosition = {
+        x: sin * currentY + cos * currentX,
+        y: cos * currentY - sin * currentX,
+        z: currentZ,
+      };
+
+      const newRotation = {
+        x: 0,
+        y: 0,
+        z: -theta,
+      };
+      return [newPosition, newRotation];
+    }
+    case 'R': {
+      const newPosition = {
+        x: sin * currentY + cos * currentX,
+        y: cos * currentY - sin * currentX,
+        z: currentZ,
+      };
+
+      const newRotation = {
+        x: 0,
+        y: 0,
+        z: -theta,
+      };
+      return [newPosition, newRotation];
+    }
+    case 'U': {
+      const newPosition = {
+        x: cos * currentX - sin * currentZ,
+        y: currentY,
+        z: sin * currentX + cos * currentZ,
+      };
+
+      const newRotation = {
+        x: 0,
+        y: -theta,
+        z: 0,
+      };
+      return [newPosition, newRotation];
+    }
+    case 'D': {
+      const newPosition = {
+        x: cos * currentX - sin * currentZ,
+        y: currentY,
+        z: sin * currentX + cos * currentZ,
+      };
+
+      const newRotation = {
+        x: 0,
+        y: -theta,
+        z: 0,
+      };
+      return [newPosition, newRotation];
+    }
+    case 'F': {
+      const newPosition = {
+        x: currentX,
+        y: cos * currentY - sin * currentZ,
+        z: sin * currentY + cos * currentZ,
+      };
+
+      const newRotation = {
+        x: theta,
+        y: 0,
+        z: 0,
+      };
+      return [newPosition, newRotation];
+    }
+    case 'B': {
+      const newPosition = {
+        x: currentX,
+        y: cos * currentY - sin * currentZ,
+        z: sin * currentY + cos * currentZ,
+      };
+
+      const newRotation = {
+        x: theta,
+        y: 0,
+        z: 0,
+      };
+      return [newPosition, newRotation];
+    }
+    default:
+      return [{ x: currentX, y: currentY, z: currentZ }, { x: 0, y: 0, z: 0 }];
+  }
+};

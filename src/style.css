@@ -55,5 +55,7 @@ h1 {
 .control-button {
   width: 100vw;
   height: 100px;
-  background-color: #0077C8;
+  background-color: rgba(0, 120, 200, 0.418);
+  font-size: 18px;
+  text-align: center;
 }

@@ -20,22 +20,37 @@ export default class CubePiece {
       y: 0,
       z: 0,
     };
+
+    this.element.style.transform = `translate3d(${this.originPosition.x}px, ${this.originPosition.y}px, ${this.originPosition.z}px)`;
   }
 
   addRotation(addedRotatoin) {
     const { x, y, z } = this.currentRotation;
 
     const newRotation = {
-      x: (x + addedRotatoin.x) % 3600,
-      y: (y + addedRotatoin.y) % 3600,
-      z: (z + addedRotatoin.z) % 3600,
+      x: (x + addedRotatoin.x) % 360,
+      y: (y + addedRotatoin.y) % 360,
+      z: (z + addedRotatoin.z) % 360,
     };
-    this.element.style.transform = `rotateX(${newRotation.x}deg) rotateY(${newRotation.y}deg) rotateZ(${newRotation.z}deg)`;
+    this.element.style.transform = `translate3d(${this.currentPosition.x}px, ${this.currentPosition.y}px, ${this.currentPosition.z}px) rotateX(${newRotation.x}deg) rotateY(${newRotation.y}deg) rotateZ(${newRotation.z}deg)`;
     this.currentRotation = newRotation;
   }
 
   setPosition(position) {
+    const { x, y, z } = this.currentRotation;
+    const { x: newX, y: newY, z: newZ } = position;
+
     this.currentPosition = position;
+    this.element.style.transform = `translate3d(${newX}px, ${newY}px, ${newZ}px) rotateX(${x}deg) rotateY(${y}deg) rotateZ(${z}deg)`;
+  }
+
+  updatePosition() {
+    const { x, y, z } = this.currentPosition;
+    this.currentPosition = {
+      x: Math.round(x),
+      y: Math.round(y),
+      z: Math.round(z),
+    };
   }
 
   render() {
@@ -107,6 +122,13 @@ export default class CubePiece {
       rightElement.style.border = 'solid #000000';
       rightElement.style.borderWidth = '2px';
     }
+
+    frontElement.style.transform = 'rotate3d(0, 1, 0, 90deg) translate3d(0, 0, -50px)';
+    backElement.style.transform = 'rotate3d(0, 1, 0, 90deg) translate3d(0, 0, 50px)';
+    upElement.style.transform = 'rotate3d(1, 0, 0, 90deg) translate3d(0, 0, 50px)';
+    downElement.style.transform = 'rotate3d(1, 0, 0, 90deg) translate3d(0, 0, -50px)';
+    leftElement.style.transform = 'rotate3d(0,0,1,90deg) translate3d(0, 0, -50px)';
+    rightElement.style.transform = 'rotate3d(0,0,1,90deg) translate3d(0, 0, 50px)';
 
     this.element.appendChild(frontElement);
     this.element.appendChild(backElement);

@@ -2,7 +2,7 @@
 /* eslint-env browser */
 
 import {
-  keyCodeToString, cubePieceArray, keyCodeToRotation, getRotationcondition,
+  keyCodeToString, cubePieceArray, keyCodeToRotation, getRotationcondition, getRotationAndPosition,
 } from './shared';
 
 export default class ControlButton {
@@ -11,7 +11,7 @@ export default class ControlButton {
 
     const element = document.createElement(tag);
     element.className = name;
-    element.textContent = 'Control Button';
+    element.textContent = 'R L F B U D , (x,y,z) = (-100, -100, 0)';
     element.tabIndex = -1;
     element.onkeydown = this.onKeyDown.bind(this);
 
@@ -45,61 +45,22 @@ export default class ControlButton {
 
   rotationCallback(array, iteration, rotation, keyCodeString) {
     if (iteration >= 90) {
-      this.setCubePiecePosition(array, keyCodeString);
+      array.forEach((cubePiece) => {
+        cubePiece.updatePosition();
+      });
       return;
     }
 
     array.forEach((cubePiece) => {
-      cubePiece.addRotation(rotation);
+      const [newPosition, newRotation] = getRotationAndPosition(cubePiece, 15, keyCodeString);
+
+      cubePiece.addRotation(newRotation);
+      cubePiece.setPosition(newPosition);
     });
 
     requestAnimationFrame(
       this.rotationCallback.bind(this, array, iteration + 15, rotation, keyCodeString),
     );
-  }
-
-  setCubePiecePosition(array, keyCodeString) {
-    if (keyCodeString === 'L') {
-      array.forEach((cubePiece) => {
-        const { x, y, z } = cubePiece.currentPosition;
-        cubePiece.setPosition({ x: y, y: -x, z });
-      });
-    }
-
-    if (keyCodeString === 'R') {
-      array.forEach((cubePiece) => {
-        const { x, y, z } = cubePiece.currentPosition;
-        cubePiece.setPosition({ x: -y, y: x, z });
-      });
-    }
-
-    if (keyCodeString === 'U') {
-      array.forEach((cubePiece) => {
-        const { x, y, z } = cubePiece.currentPosition;
-        cubePiece.setPosition({ x: -z, y, z: x });
-      });
-    }
-
-    if (keyCodeString === 'D') {
-      array.forEach((cubePiece) => {
-        const { x, y, z } = cubePiece.currentPosition;
-        cubePiece.setPosition({ x: z, y, z: -x });
-      });
-    }
-
-    if (keyCodeString === 'F') {
-      array.forEach((cubePiece) => {
-        const { x, y, z } = cubePiece.currentPosition;
-        cubePiece.setPosition({ x, y: z, z: -y });
-      });
-    }
-
-    if (keyCodeString === 'B') {
-      array.forEach((cubePiece) => {
-        const { x, y, z } = cubePiece.currentPosition;
-        cubePiece.setPosition({ x, y: -z, z: y });
-      });
-    }
   }
 
   addEvent() {
