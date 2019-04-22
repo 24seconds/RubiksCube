@@ -1,9 +1,12 @@
+/* eslint-disable max-len */
 /* eslint-disable class-methods-use-this */
 /* eslint-env browser */
 
 import {
   keyCodeToString, cubePieceArray, keyCodeToRotation, getRotationcondition, getRotationAndPosition,
 } from './shared';
+
+const rotationPerFrame = 30;
 
 export default class ControlButton {
   constructor(tag, name, props) {
@@ -40,7 +43,7 @@ export default class ControlButton {
     );
 
     requestAnimationFrame(this.rotationCallback.bind(this,
-      filteredCubePiceArray, 0, keyCodeToRotation(15)[keyCodeString], keyCodeString));
+      filteredCubePiceArray, 0, keyCodeToRotation(rotationPerFrame)[keyCodeString], keyCodeString));
   }
 
   rotationCallback(array, iteration, rotation, keyCodeString) {
@@ -52,14 +55,14 @@ export default class ControlButton {
     }
 
     array.forEach((cubePiece) => {
-      const [newPosition, newRotation] = getRotationAndPosition(cubePiece, 15, keyCodeString);
+      const [newPosition, newRotation] = getRotationAndPosition(cubePiece, rotationPerFrame, keyCodeString);
 
       cubePiece.addRotation(newRotation);
       cubePiece.setPosition(newPosition);
     });
 
     requestAnimationFrame(
-      this.rotationCallback.bind(this, array, iteration + 15, rotation, keyCodeString),
+      this.rotationCallback.bind(this, array, iteration + rotationPerFrame, rotation, keyCodeString),
     );
   }
 
