@@ -89,8 +89,7 @@ export default class CubePiece {
 
     if (x === -100) {
       frontElement.style.backgroundColor = 'red';
-      frontElement.style.border = 'solid #000000';
-      frontElement.style.borderWidth = '2px';
+      frontElement.style.boxShadow = '0px 0px 0px 2px black inset';
     }
 
     backElement.className = 'face back';
@@ -99,8 +98,7 @@ export default class CubePiece {
 
     if (x === 100) {
       backElement.style.backgroundColor = 'orange';
-      backElement.style.border = 'solid #000000';
-      backElement.style.borderWidth = '2px';
+      backElement.style.boxShadow = '0px 0px 0px 2px black inset';
     }
 
     upElement.className = 'face up';
@@ -109,8 +107,7 @@ export default class CubePiece {
 
     if (y === -100) {
       upElement.style.backgroundColor = 'yellow';
-      upElement.style.border = 'solid #000000';
-      upElement.style.borderWidth = '2px';
+      upElement.style.boxShadow = '0px 0px 0px 2px black inset';
     }
 
     downElement.className = 'face down';
@@ -119,8 +116,7 @@ export default class CubePiece {
 
     if (y === 100) {
       downElement.style.backgroundColor = 'white';
-      downElement.style.border = 'solid #000000';
-      downElement.style.borderWidth = '2px';
+      downElement.style.boxShadow = '0px 0px 0px 2px black inset';
     }
 
     leftElement.className = 'face left';
@@ -129,8 +125,7 @@ export default class CubePiece {
 
     if (z === -100) {
       leftElement.style.backgroundColor = 'blue';
-      leftElement.style.border = 'solid #000000';
-      leftElement.style.borderWidth = '2px';
+      leftElement.style.boxShadow = '0px 0px 0px 2px black inset';
     }
 
     rightElement.className = 'face right';
@@ -139,8 +134,7 @@ export default class CubePiece {
 
     if (z === 100) {
       rightElement.style.backgroundColor = 'green';
-      rightElement.style.border = 'solid #000000';
-      rightElement.style.borderWidth = '2px';
+      rightElement.style.boxShadow = '0px 0px 0px 2px black inset';
     }
 
     frontElement.style.transform = 'rotate3d(0, 1, 0, 90deg) translate3d(0, 0, -50px)';
