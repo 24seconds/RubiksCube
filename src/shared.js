@@ -1,3 +1,8 @@
+/* eslint-disable import/no-extraneous-dependencies */
+// import { Quaternion } from 'quaternion';
+// const Qauternion = require('quaternion');
+import Qauternion from 'quaternion';
+
 export const positionArray = [
   [-100, -100, -100], [-100, -100, 0], [-100, -100, 100],
   [-100, 0, -100], [-100, 0, 0], [-100, 0, 100],
@@ -80,9 +85,9 @@ export const getRotationAndPosition = (cubePiece, _theta, keyCodeString) => {
       };
 
       const newRotation = {
-        x: 0,
+        x: -theta,
         y: 0,
-        z: -theta,
+        z: 0,
       };
       return [newPosition, newRotation];
     }
@@ -94,9 +99,9 @@ export const getRotationAndPosition = (cubePiece, _theta, keyCodeString) => {
       };
 
       const newRotation = {
-        x: 0,
+        x: -theta,
         y: 0,
-        z: -theta,
+        z: 0,
       };
       return [newPosition, newRotation];
     }
@@ -109,8 +114,8 @@ export const getRotationAndPosition = (cubePiece, _theta, keyCodeString) => {
 
       const newRotation = {
         x: 0,
-        y: -theta,
-        z: 0,
+        y: 0,
+        z: -theta,
       };
       return [newPosition, newRotation];
     }
@@ -123,8 +128,8 @@ export const getRotationAndPosition = (cubePiece, _theta, keyCodeString) => {
 
       const newRotation = {
         x: 0,
-        y: -theta,
-        z: 0,
+        y: 0,
+        z: -theta,
       };
       return [newPosition, newRotation];
     }
@@ -136,8 +141,8 @@ export const getRotationAndPosition = (cubePiece, _theta, keyCodeString) => {
       };
 
       const newRotation = {
-        x: theta,
-        y: 0,
+        x: 0,
+        y: theta,
         z: 0,
       };
       return [newPosition, newRotation];
@@ -150,8 +155,8 @@ export const getRotationAndPosition = (cubePiece, _theta, keyCodeString) => {
       };
 
       const newRotation = {
-        x: theta,
-        y: 0,
+        x: 0,
+        y: theta,
         z: 0,
       };
       return [newPosition, newRotation];
@@ -159,4 +164,22 @@ export const getRotationAndPosition = (cubePiece, _theta, keyCodeString) => {
     default:
       return [{ x: currentX, y: currentY, z: currentZ }, { x: 0, y: 0, z: 0 }];
   }
+};
+
+export const rotateUsingQuaternion = (rotationAngle, currentQuaternion) => {
+  const [theta, direction] = ((angle) => {
+    const { x, y, z } = angle;
+    const degToRad = Math.PI / 180;
+
+    if (Math.abs(x) > 0) return [x * degToRad, [1, 0, 0]];
+    if (Math.abs(y) > 0) return [y * degToRad, [0, 1, 0]];
+    if (Math.abs(z) > 0) return [z * degToRad, [0, 0, 1]];
+
+    return [0, [0, 0, 0]];
+  })(rotationAngle);
+
+  const q = Qauternion.fromEuler(direction[0] * theta, direction[1] * theta, direction[2] * theta, 'ZXY');
+  const newQuaternion = q.mul(currentQuaternion);
+
+  return [newQuaternion.conjugate().toMatrix4(), newQuaternion];
 };

@@ -50,6 +50,7 @@ export default class ControlButton {
     if (iteration >= 90) {
       array.forEach((cubePiece) => {
         cubePiece.updatePosition();
+        cubePiece.updateMatrix();
       });
       return;
     }

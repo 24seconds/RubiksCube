@@ -1,5 +1,8 @@
+/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable class-methods-use-this */
 /* eslint-env browser */
+import Qauternion from 'quaternion';
+import { rotateUsingQuaternion } from './shared';
 
 export default class CubePiece {
   constructor(tag, id, name, parent) {
@@ -15,33 +18,37 @@ export default class CubePiece {
     this.originPosition = { x, y, z };
     this.currentPosition = this.originPosition;
 
-    this.currentRotation = {
-      x: 0,
-      y: 0,
-      z: 0,
+    this.currentMatrix = {
+      x: [1, 0, 0, 0],
+      y: [0, 1, 0, 0],
+      z: [0, 0, 1, 0],
     };
 
-    this.element.style.transform = `translate3d(${this.originPosition.x}px, ${this.originPosition.y}px, ${this.originPosition.z}px)`;
+    this.currentQuaternion = new Qauternion([1, 0, 0, 0]);
+    this.element.style.transform = `translate3d(${this.originPosition.x}px, ${this.originPosition.y}px, ${this.originPosition.z}px) matrix3d(1,0,0,0, 0,1,0,0, 0,0,1,0, 0, 0, 0, 1)`;
   }
 
   addRotation(addedRotatoin) {
-    const { x, y, z } = this.currentRotation;
+    const [r, newQuaternion] = rotateUsingQuaternion(addedRotatoin, this.currentQuaternion);
 
-    const newRotation = {
-      x: (x + addedRotatoin.x) % 360,
-      y: (y + addedRotatoin.y) % 360,
-      z: (z + addedRotatoin.z) % 360,
-    };
-    this.element.style.transform = `translate3d(${this.currentPosition.x}px, ${this.currentPosition.y}px, ${this.currentPosition.z}px) rotateX(${newRotation.x}deg) rotateY(${newRotation.y}deg) rotateZ(${newRotation.z}deg)`;
-    this.currentRotation = newRotation;
+    const x = [r[0], r[1], r[2], r[3]];
+    const y = [r[4], r[5], r[6], r[7]];
+    const z = [r[8], r[9], r[10], r[11]];
+
+    const { x: xP, y: yP, z: zP } = this.currentPosition;
+
+    this.element.style.transform = `translate3d(${xP}px, ${yP}px, ${zP}px) matrix3d(${r}, 0, 0, 0, 1)`;
+    this.currentQuaternion = newQuaternion;
+
+    this.currentMatrix = { x, y, z };
   }
 
   setPosition(position) {
-    const { x, y, z } = this.currentRotation;
+    const { x, y, z } = this.currentMatrix;
     const { x: newX, y: newY, z: newZ } = position;
 
     this.currentPosition = position;
-    this.element.style.transform = `translate3d(${newX}px, ${newY}px, ${newZ}px) rotateX(${x}deg) rotateY(${y}deg) rotateZ(${z}deg)`;
+    this.element.style.transform = `translate3d(${newX}px, ${newY}px, ${newZ}px) matrix3d(${x}, ${y}, ${z}, 0, 0, 0, 1)`;
   }
 
   updatePosition() {
@@ -51,6 +58,19 @@ export default class CubePiece {
       y: Math.round(y),
       z: Math.round(z),
     };
+  }
+
+  updateMatrix() {
+    const { x, y, z } = this.currentMatrix;
+    const { x: xP, y: yP, z: zP } = this.currentPosition;
+    this.currentMatrix = {
+      x: x.map(value => Math.round(value)),
+      y: y.map(value => Math.round(value)),
+      z: z.map(value => Math.round(value)),
+    };
+
+    const { x: xM, y: yM, z: zM } = this.currentMatrix;
+    this.element.style.transform = `translate3d(${xP}px, ${yP}px, ${zP}px) matrix3d(${xM}, ${yM}, ${zM}, 0, 0, 0, 1)`;
   }
 
   render() {
