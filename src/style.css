@@ -59,3 +59,7 @@ h1 {
   font-size: 18px;
   text-align: center;
 }
+
+.front, .back, .up, .down, .right, .left {
+  background-color: rgb(0, 0, 0);
+}
