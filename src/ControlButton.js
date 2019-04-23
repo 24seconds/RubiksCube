@@ -3,7 +3,7 @@
 /* eslint-env browser */
 
 import {
-  keyCodeToString, cubePieceArray, keyCodeToRotation, getRotationcondition, getRotationAndPosition,
+  keyCodeToString, cubePieceArray, keyCodeToRotation, getRotationcondition, getRotationAndPosition, isLockAvailable, lockAquire, lockRelease,
 } from './shared';
 
 const rotationPerFrame = 30;
@@ -17,11 +17,13 @@ export default class ControlButton {
     element.textContent = 'R L F B U D , (x,y,z) = (-100, -100, 0)';
     element.tabIndex = -1;
     element.onkeydown = this.onKeyDown.bind(this);
+    element.onkeyup = this.onKeyUp.bind(this);
 
     this.element = element;
     this.addEvent();
 
     this.dummy = '';
+    this.keyCombineMap = {};
   }
 
   onClick() {
@@ -31,39 +33,56 @@ export default class ControlButton {
   onKeyDown(event) {
     const { keyCode } = event;
 
-    if ([82, 76, 85, 68, 70, 66].includes(keyCode)) {
+    this.keyCombineMap[keyCode] = event.type === 'keydown';
+
+    if (this.keyCombineMap[16] && [82, 76, 85, 68, 70, 66].includes(keyCode) && isLockAvailable()) {
+      lockAquire();
+      this.rotateOneSide(keyCode, -1);
+      return;
+    }
+
+    if ([82, 76, 85, 68, 70, 66].includes(keyCode) && isLockAvailable()) {
+      lockAquire();
       this.rotateOneSide(keyCode);
     }
   }
 
-  rotateOneSide(keyCode) {
+  onKeyUp(event) {
+    const { keyCode } = event;
+
+    this.keyCombineMap[keyCode] = event.type === 'keydown';
+  }
+
+  rotateOneSide(keyCode, isPrime = 1) {
     const keyCodeString = keyCodeToString[keyCode];
     const filteredCubePiceArray = cubePieceArray.filter(
       cubePiece => getRotationcondition(cubePiece, keyCodeString),
     );
 
     requestAnimationFrame(this.rotationCallback.bind(this,
-      filteredCubePiceArray, 0, keyCodeToRotation(rotationPerFrame)[keyCodeString], keyCodeString));
+      filteredCubePiceArray, 0, keyCodeToRotation(rotationPerFrame)[keyCodeString], keyCodeString, isPrime));
   }
 
-  rotationCallback(array, iteration, rotation, keyCodeString) {
-    if (iteration >= 90) {
+  rotationCallback(array, iteration, rotation, keyCodeString, isPrime) {
+    if (Math.abs(iteration) >= 90) {
       array.forEach((cubePiece) => {
         cubePiece.updatePosition();
         cubePiece.updateMatrix();
       });
+
+      lockRelease();
       return;
     }
 
     array.forEach((cubePiece) => {
-      const [newPosition, newRotation] = getRotationAndPosition(cubePiece, rotationPerFrame, keyCodeString);
+      const [newPosition, newRotation] = getRotationAndPosition(cubePiece, rotationPerFrame * isPrime, keyCodeString);
 
       cubePiece.addRotation(newRotation);
       cubePiece.setPosition(newPosition);
     });
 
     requestAnimationFrame(
-      this.rotationCallback.bind(this, array, iteration + rotationPerFrame, rotation, keyCodeString),
+      this.rotationCallback.bind(this, array, iteration + rotationPerFrame * isPrime, rotation, keyCodeString, isPrime),
     );
   }
 
