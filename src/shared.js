@@ -3,6 +3,12 @@
 // const Qauternion = require('quaternion');
 import Qauternion from 'quaternion';
 
+let isLocked = false;
+
+export const lockAquire = () => { isLocked = true; };
+export const lockRelease = () => { isLocked = false; };
+export const isLockAvailable = () => !isLocked;
+
 export const positionArray = [
   [-100, -100, -100], [-100, -100, 0], [-100, -100, 100],
   [-100, 0, -100], [-100, 0, 0], [-100, 0, 100],
