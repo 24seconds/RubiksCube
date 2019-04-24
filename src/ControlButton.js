@@ -18,7 +18,7 @@ import {
   flushOperationStack,
 } from './shared';
 
-const rotationPerFrame = 30;
+let rotationPerFrame = 5;
 
 export default class ControlButton {
   constructor(tag, name, props) {
