@@ -3,7 +3,14 @@
 /* eslint-env browser */
 
 import {
-  keyCodeToString, cubePieceArray, keyCodeToRotation, getRotationcondition, getRotationAndPosition, isLockAvailable, lockAquire, lockRelease,
+  keyCodeToString,
+  cubePieceArray,
+  keyCodeToRotation,
+  getRotationcondition,
+  getRotationAndPosition,
+  isLockAvailable,
+  lockAquire,
+  lockRelease,
 } from './shared';
 
 const rotationPerFrame = 30;
