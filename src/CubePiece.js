@@ -84,7 +84,6 @@ export default class CubePiece {
     const leftElement = document.createElement('div');
 
     frontElement.className = 'face front';
-    frontElement.textContent = 'front';
     frontElement.style.transform = `translate3d(${x}px, ${y}px, ${z}px) rotate3d(0, 1, 0, 90deg) translate3d(0, 0, -50px)`;
 
     if (x === -100) {
@@ -93,7 +92,6 @@ export default class CubePiece {
     }
 
     backElement.className = 'face back';
-    backElement.textContent = 'back';
     backElement.style.transform = `translate3d(${x}px, ${y}px, ${z}px) rotate3d(0, 1, 0, 90deg) translate3d(0, 0, 50px)`;
 
     if (x === 100) {
@@ -102,7 +100,6 @@ export default class CubePiece {
     }
 
     upElement.className = 'face up';
-    upElement.textContent = 'up';
     upElement.style.transform = `translate3d(${x}px, ${y}px, ${z}px) rotate3d(1, 0, 0, 90deg) translate3d(0, 0, 50px)`;
 
     if (y === -100) {
@@ -111,7 +108,6 @@ export default class CubePiece {
     }
 
     downElement.className = 'face down';
-    downElement.textContent = 'down';
     downElement.style.transform = `translate3d(${x}px, ${y}px, ${z}px) rotate3d(1, 0, 0, 90deg) translate3d(0, 0, -50px)`;
 
     if (y === 100) {
@@ -120,7 +116,6 @@ export default class CubePiece {
     }
 
     leftElement.className = 'face left';
-    leftElement.textContent = 'left';
     leftElement.style.transform = `translate3d(${x}px, ${y}px, ${z}px) rotate3d(0,0,1,90deg) translate3d(0, 0, -50px)`;
 
     if (z === -100) {
@@ -129,7 +124,6 @@ export default class CubePiece {
     }
 
     rightElement.className = 'face right';
-    rightElement.textContent = 'right';
     rightElement.style.transform = `translate3d(${x}px, ${y}px, ${z}px) rotate3d(0,0,1,90deg) translate3d(0, 0, 50px)`;
 
     if (z === 100) {
