@@ -2,6 +2,28 @@
 // import { Quaternion } from 'quaternion';
 // const Qauternion = require('quaternion');
 import Qauternion from 'quaternion';
+import Cube from 'cubejs';
+
+function initializeSovler() {
+  setTimeout(() => {
+    console.log('start!');
+    Cube.initSolver();
+    console.log('done!');
+  }, 0);
+}
+
+initializeSovler();
+
+export const getSolvePath = (operationStack) => {
+  const cube = new Cube();
+  cube.move(operationStack.join(' '));
+
+  const solvePath = cube.solve();
+
+  const returnSolvePath = solvePath.split(' ');
+
+  return returnSolvePath;
+};
 
 let isLocked = false;
 
@@ -52,6 +74,15 @@ export const keyCodeToString = {
   68: 'D',
   70: 'F',
   66: 'B',
+};
+
+export const stringToKeyCode = {
+  L: 76,
+  R: 82,
+  U: 85,
+  D: 68,
+  F: 70,
+  B: 66,
 };
 
 export const keyCodeToRotation = rotation => ({

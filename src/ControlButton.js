@@ -13,6 +13,8 @@ import {
   lockAquire,
   lockRelease,
   operationStack,
+  getSolvePath,
+  flushOperationStack,
 } from './shared';
 
 const rotationPerFrame = 30;
@@ -59,6 +61,17 @@ export default class ControlButton {
       this.rotateOneSide(keyCode);
       return;
     }
+
+    if (this.keyCombineMap[83] && isLockAvailable()) {
+      const solvePath = getSolvePath(operationStack);
+
+      lockAquire();
+      const convertedPath = this.convertPath(solvePath);
+
+      rotationPerFrame = 10;
+      this.solveCube(convertedPath);
+      lockRelease();
+    }
   }
 
   onKeyUp(event) {
@@ -67,17 +80,19 @@ export default class ControlButton {
     this.keyCombineMap[keyCode] = event.type === 'keydown';
   }
 
-  rotateOneSide(keyCode, isPrime = 1) {
+  rotateOneSide(keyCode, isPrime = 1, solvePath = null) {
     const keyCodeString = keyCodeToString[keyCode];
     const filteredCubePiceArray = cubePieceArray.filter(
       cubePiece => getRotationcondition(cubePiece, keyCodeString),
     );
 
     requestAnimationFrame(this.rotationCallback.bind(this,
-      filteredCubePiceArray, 0, keyCodeToRotation(rotationPerFrame)[keyCodeString], keyCodeString, isPrime));
+      filteredCubePiceArray, 0, keyCodeToRotation(rotationPerFrame)[keyCodeString], keyCodeString, isPrime, solvePath));
+
+    return 1;
   }
 
-  rotationCallback(array, iteration, rotation, keyCodeString, isPrime) {
+  rotationCallback(array, iteration, rotation, keyCodeString, isPrime, solvePath) {
     if (Math.abs(iteration) >= 90) {
       array.forEach((cubePiece) => {
         cubePiece.updatePosition();
@@ -85,6 +100,10 @@ export default class ControlButton {
       });
 
       lockRelease();
+
+      if (solvePath) {
+        this.solveCube(solvePath);
+      }
       return;
     }
 
@@ -96,7 +115,7 @@ export default class ControlButton {
     });
 
     requestAnimationFrame(
-      this.rotationCallback.bind(this, array, iteration + rotationPerFrame * isPrime, rotation, keyCodeString, isPrime),
+      this.rotationCallback.bind(this, array, iteration + rotationPerFrame * isPrime, rotation, keyCodeString, isPrime, solvePath),
     );
   }
 
@@ -106,5 +125,49 @@ export default class ControlButton {
 
   render() {
     this.props.appendChild(this.element);
+  }
+
+  convertPath(solvePath) {
+    const returnPath = [];
+
+    solvePath.forEach((value) => {
+      switch (value.substr(-1)) {
+        case '2': {
+          returnPath.push(value.substring(0, 1));
+          returnPath.push(value.substring(0, 1));
+          break;
+        }
+        default: {
+          returnPath.push(value);
+          break;
+        }
+      }
+    });
+
+    return returnPath;
+  }
+
+  solveCube(solvePath) {
+    if (solvePath.length === 0) {
+      rotationPerFrame = 5;
+      flushOperationStack();
+      return 1;
+    }
+
+    const key = solvePath[0];
+    solvePath.shift();
+
+    switch (key.substr(-1)) {
+      case "'": {
+        this.rotateOneSide(stringToKeyCode[key.charAt(0)], -1, solvePath);
+        break;
+      }
+      default: {
+        this.rotateOneSide(stringToKeyCode[key.charAt(0)], 1, solvePath);
+        break;
+      }
+    }
+
+    return 1;
   }
 }
