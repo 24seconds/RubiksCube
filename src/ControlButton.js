@@ -4,6 +4,7 @@
 
 import {
   keyCodeToString,
+  stringToKeyCode,
   cubePieceArray,
   keyCodeToRotation,
   getRotationcondition,
@@ -11,6 +12,7 @@ import {
   isLockAvailable,
   lockAquire,
   lockRelease,
+  operationStack,
 } from './shared';
 
 const rotationPerFrame = 30;
@@ -44,13 +46,18 @@ export default class ControlButton {
 
     if (this.keyCombineMap[16] && [82, 76, 85, 68, 70, 66].includes(keyCode) && isLockAvailable()) {
       lockAquire();
+      operationStack.push(`${keyCodeToString[keyCode]}'`);
+
       this.rotateOneSide(keyCode, -1);
       return;
     }
 
     if ([82, 76, 85, 68, 70, 66].includes(keyCode) && isLockAvailable()) {
       lockAquire();
+      operationStack.push(keyCodeToString[keyCode]);
+
       this.rotateOneSide(keyCode);
+      return;
     }
   }
 

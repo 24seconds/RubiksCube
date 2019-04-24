@@ -9,6 +9,14 @@ export const lockAquire = () => { isLocked = true; };
 export const lockRelease = () => { isLocked = false; };
 export const isLockAvailable = () => !isLocked;
 
+export const operationStack = [];
+export const flushOperationStack = () => {
+  const len = operationStack.length;
+  for (let i = 0; i < len; i += 1) {
+    operationStack.pop();
+  }
+};
+
 export const positionArray = [
   [-100, -100, -100], [-100, -100, 0], [-100, -100, 100],
   [-100, 0, -100], [-100, 0, 0], [-100, 0, 100],
