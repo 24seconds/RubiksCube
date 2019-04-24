@@ -14,6 +14,7 @@ import {
   lockRelease,
   operationStack,
   getSolvePath,
+  printCube,
   flushOperationStack,
 } from './shared';
 
@@ -35,6 +36,7 @@ export default class ControlButton {
 
     this.dummy = '';
     this.keyCombineMap = {};
+    // printCube(operationStack);
   }
 
   onClick() {
@@ -51,6 +53,7 @@ export default class ControlButton {
       operationStack.push(`${keyCodeToString[keyCode]}'`);
 
       this.rotateOneSide(keyCode, -1);
+      // printCube(operationStack);;
       return;
     }
 
@@ -59,6 +62,7 @@ export default class ControlButton {
       operationStack.push(keyCodeToString[keyCode]);
 
       this.rotateOneSide(keyCode);
+      // printCube(operationStack);;
       return;
     }
 

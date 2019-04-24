@@ -14,6 +14,12 @@ function initializeSovler() {
 
 initializeSovler();
 
+export const printCube = (operationStack) => {
+  const cube = new Cube();
+  cube.move(operationStack.join(' '));
+  // console.log('printCube ', cube.asString().match(/.{9}/g).join(' / '));
+};
+
 export const getSolvePath = (operationStack) => {
   const cube = new Cube();
   cube.move(operationStack.join(' '));
@@ -117,7 +123,7 @@ export const getRotationAndPosition = (cubePiece, _theta, keyCodeString) => {
   const { x: currentX, y: currentY, z: currentZ } = cubePiece.currentPosition;
   const degToRad = Math.PI / 180;
 
-  const theta = ['F', 'R', 'U'].includes(keyCodeString) ? -1 * _theta : _theta;
+  const theta = ['F', 'R', 'D'].includes(keyCodeString) ? -1 * _theta : _theta;
   const cos = Math.cos(theta * degToRad);
   const sin = Math.sin(theta * degToRad);
 
