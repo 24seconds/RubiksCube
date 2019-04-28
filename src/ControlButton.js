@@ -124,15 +124,6 @@ export default class ControlButton {
     this.element.addEventListener('click', this.onClick.bind(this));
   }
 
-  render() {
-    this.props.appendChild(this.element);
-    const shiftButton = new ShiftButton('button', 'shift-button', this.element, 'SHIFT');
-    shiftButton.render();
-
-    const cubeControllerContainer = new CubeControllerContainer('div', ' cube-controller-container', this.element);
-    cubeControllerContainer.render();
-  }
-
   convertPath(solvePath) {
     const returnPath = [];
 
@@ -175,5 +166,14 @@ export default class ControlButton {
     }
 
     return 1;
+  }
+
+  render() {
+    this.props.appendChild(this.element);
+    const shiftButton = new ShiftButton('button', 'shift-button', this.element, 'SHIFT');
+    shiftButton.render();
+
+    const cubeControllerContainer = new CubeControllerContainer('div', ' cube-controller-container', this.element);
+    cubeControllerContainer.render();
   }
 }
