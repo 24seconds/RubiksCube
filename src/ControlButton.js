@@ -1,6 +1,8 @@
 /* eslint-disable max-len */
 /* eslint-disable class-methods-use-this */
 /* eslint-env browser */
+import CubeControllerContainer from './CubeControllerContainer';
+import ShiftButton from './ShiftButton';
 
 import {
   keyCodeToString,
@@ -26,7 +28,6 @@ export default class ControlButton {
 
     const element = document.createElement(tag);
     element.className = name;
-    element.textContent = 'R L F B U D , (x,y,z) = (-100, -100, 0)';
     element.tabIndex = -1;
     element.onkeydown = this.onKeyDown.bind(this);
     element.onkeyup = this.onKeyUp.bind(this);
@@ -129,6 +130,11 @@ export default class ControlButton {
 
   render() {
     this.props.appendChild(this.element);
+    const shiftButton = new ShiftButton('button', 'shift-button', this.element, 'SHIFT');
+    shiftButton.render();
+
+    const cubeControllerContainer = new CubeControllerContainer('div', ' cube-controller-container', this.element);
+    cubeControllerContainer.render();
   }
 
   convertPath(solvePath) {

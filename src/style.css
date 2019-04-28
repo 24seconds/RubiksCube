@@ -66,12 +66,36 @@ h1 {
 
 .control-button {
   width: 100vw;
-  height: 100px;
+  height: auto;
   background-color: rgba(0, 120, 200, 0.418);
   font-size: 18px;
   text-align: center;
+  display: flex;
+  justify-content: space-around;
 }
 
 .front, .back, .up, .down, .right, .left {
   background-color: rgb(0, 0, 0);
+  font-size: 22px;
+}
+
+.cube-controller-container {
+  display: flex;
+  flex-wrap: wrap;
+
+}
+
+.cube-button {
+  width: 33%;
+  height: 50px;
+  font-size: 22px;
+  background-color: darkolivegreen;
+}
+
+.shift-button {
+  width: 100px;
+  height: 100px;
+  font-size: 22px;
+  border-radius: 50%;
+  background-color: deeppink;
 }
