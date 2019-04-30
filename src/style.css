@@ -44,6 +44,7 @@ h1 {
   justify-content: center;
   align-items: center;
   padding: 50px 0px 50px 0px;
+  pointer-events: none;
 }
 
 .wrapper {
@@ -53,6 +54,8 @@ h1 {
   position: absolute;
   transform-style: preserve-3d;
   backface-visibility: hidden;
+  z-index: 5;
+  pointer-events: none;
 }
 
 .face {
