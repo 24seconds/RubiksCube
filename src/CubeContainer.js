@@ -78,7 +78,7 @@ export default class CubeContainer {
   }
 
   render() {
-    document.body.appendChild(this.element);
+    this.props.appendChild(this.element);
 
     const cubeCanvas = new CubeCanvas('div', 'cube-canvas', this.element);
     cubeCanvas.render();
