@@ -170,10 +170,20 @@ export default class ControlButton {
 
   render() {
     this.props.appendChild(this.element);
-    const shiftButton = new ShiftButton('button', 'shift-button', this.element, 'SHIFT');
+    const propsFunctionCubeButton = { onKeyDown: this.onKeyDown.bind(this) };
+    const propsFunctionShiftButton = { onKeyDown: this.onKeyDown.bind(this), onKeyUp: this.onKeyUp.bind(this) };
+
+    const shiftButton = new ShiftButton('button', 'shift-button', this.element, 'SHIFT', propsFunctionShiftButton);
     shiftButton.render();
 
-    const cubeControllerContainer = new CubeControllerContainer('div', ' cube-controller-container', this.element);
-    cubeControllerContainer.render();
+    const cubeControllerContainer1 = new CubeControllerContainer(
+      'div', 'cube-controller-container one', this.element, propsFunctionCubeButton, ['R', 'U', 'F'],
+    );
+    cubeControllerContainer1.render();
+
+    const cubeControllerContainer2 = new CubeControllerContainer(
+      'div', 'cube-controller-container two', this.element, propsFunctionCubeButton, ['L', 'D', 'B'],
+    );
+    cubeControllerContainer2.render();
   }
 }
