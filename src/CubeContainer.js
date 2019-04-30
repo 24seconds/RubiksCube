@@ -6,9 +6,6 @@ export default class CubeContainer {
   constructor(tag, name, props) {
     const element = document.createElement(tag);
     element.className = name;
-    element.onmousedown = this.onMouseDown.bind(this);
-    element.onmouseup = this.onMouseUp.bind(this);
-    element.onmousemove = this.onMouseMove.bind(this);
     element.style.transform = 'rotate3d(1, 0, 0, 0deg) rotate3d(0, 1, 0, 0deg)';
     this.element = element;
     this.props = props;
