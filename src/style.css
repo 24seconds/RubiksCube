@@ -21,29 +21,86 @@ h1 {
   align-items: center;
   border-bottom: solid 1px #979797;
   background-color: white;
+  height: 75px;
+  padding: 0 15px 0 15px;
+}
+
+.header > div {
+  margin: 0 15px 0 0;
+}
+
+.cube-body {
+  display: grid;
+  grid-template-columns: 80% 20%;
+  grid-template-rows: auto auto auto;
+  background-color: palegoldenrod;
+}
+
+.cube-simulator {
+  grid-row-start: 1;
+}
+
+.cube-simulator > button {
+  margin: 10px 15px 0 15px;
+  width: 100px;
+  height: 50px;
+  border-radius: 20px;
+  border: 2px solid rgb(78, 73, 73);
 }
 
 .cube-container {
-  width: 100%;
-  height: 400px;
-  margin: 100px 0 100px 0;
+  grid-row-start: 2;
+  width: auto;
+  height: 500px;
+  margin: 50px 0 50px 0;
 
   display: flex;
   justify-content: center;
 
   transform-style: preserve-3d;
+  z-index: 100;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+
+.cube-operation-stack-header {
+  grid-area: 1 / 2 / 1 / 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+ul.cube-operation-stack {
+  grid-column-start: 2;
+  grid-row-start: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: auto;
+  height: 600px;
+  padding: 0 0 0 0;
+  margin: 0 0 0 0;
+  overflow: auto;
+}
+
+ul.cube-operation-stack > li {
+  list-style-type: none;
+  font-size: 40px;
+}
+
 
 .cube-canvas {
   width: 300px;
   height: 300px;
   position: relative;
   transform-style: preserve-3d;
-  transform: rotate3d(1, 0, 0, -32deg) rotate3d(0, 1, 0, 45deg);
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 50px 0px 50px 0px;
+  z-index: 5;
   pointer-events: none;
 }
 
@@ -65,16 +122,20 @@ h1 {
     height: var(--piece-height);
     line-height: 100px;
     text-align: center;
+    pointer-events: none;
 }
 
 .control-button {
-  width: 100vw;
-  height: auto;
-  background-color: rgba(0, 120, 200, 0.418);
+  grid-row-start: 3;
+  grid-column: 1 / 3;
+  width: 100%;
+  background-color: rgba(200, 57, 0, 0.418);
   font-size: 18px;
   text-align: center;
-  display: flex;
-  justify-content: space-around;
+  display: grid;
+  justify-items: center;
+  grid-template-columns: 40% 20% 20% 20%;
+  grid-template-rows: 50% 50%;
 }
 
 .front, .back, .up, .down, .right, .left {
@@ -83,19 +144,36 @@ h1 {
 }
 
 .cube-controller-container {
+  grid-column: 2 / -1;
   display: flex;
   flex-wrap: wrap;
+  height: 100px;
+  width: 100%;
+  justify-content: space-around;
+  align-items: center;
+}
 
+.cube-controller-container.one {
+  grid-row: 1 / 2;
+  background-color: brown;
+}
+
+.cube-controller-container.two {
+  grid-row: 2 / 3;
+  background-color: blue;
 }
 
 .cube-button {
-  width: 33%;
-  height: 50px;
+  width: 50px;
+  height: 40%;
   font-size: 22px;
+  margin: 0 10px 0 10px;
   background-color: darkolivegreen;
 }
 
 .shift-button {
+  grid-row: 1 / 3;
+  align-self: center;
   width: 100px;
   height: 100px;
   font-size: 22px;
