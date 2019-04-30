@@ -9,8 +9,21 @@ export default class CubeBody {
   constructor(tag, name, props) {
     const element = document.createElement(tag);
     element.className = name;
+    element.tabIndex = -1;
+    element.onkeydown = this.onKeyDown.bind(this);
+    element.onkeyup = this.onKeyUp.bind(this);
+
     this.element = element;
     this.props = props;
+    this.child = null;
+  }
+
+  onKeyDown(event) {
+    this.child.onKeyDown(event);
+  }
+
+  onKeyUp(event) {
+    this.child.onKeyUp(event);
   }
 
   render() {
@@ -28,6 +41,8 @@ export default class CubeBody {
 
     const controlButton = new ControlButton('div', 'control-button', this.element);
     controlButton.render();
+
+    this.child = controlButton;
 
     this.props.appendChild(this.element);
   }
