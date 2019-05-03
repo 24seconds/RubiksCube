@@ -144,6 +144,13 @@ export default class ControlButton {
     return returnPath;
   }
 
+  onSolve(convertedPath) {
+    lockAquire();
+    rotationPerFrame = 10;
+    this.solveCube(convertedPath);
+    lockRelease();
+  }
+
   solveCube(solvePath) {
     if (solvePath.length === 0) {
       rotationPerFrame = 5;

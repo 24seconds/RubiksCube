@@ -4,15 +4,11 @@
 import Qauternion from 'quaternion';
 import Cube from 'cubejs';
 
-function initializeSovler() {
-  setTimeout(() => {
-    console.log('start!');
-    Cube.initSolver();
-    console.log('done!');
-  }, 0);
-}
-
-initializeSovler();
+export const initializeSolver = () => {
+  console.log('start!');
+  Cube.initSolver();
+  console.log('done!');
+};
 
 export const printCube = (operationStack) => {
   const cube = new Cube();
@@ -29,6 +25,26 @@ export const getSolvePath = (operationStack) => {
   const returnSolvePath = solvePath.split(' ');
 
   return returnSolvePath;
+};
+
+export const convertPath = (solvePath) => {
+  const returnPath = [];
+
+  solvePath.forEach((value) => {
+    switch (value.substr(-1)) {
+      case '2': {
+        returnPath.push(value.substring(0, 1));
+        returnPath.push(value.substring(0, 1));
+        break;
+      }
+      default: {
+        returnPath.push(value);
+        break;
+      }
+    }
+  });
+
+  return returnPath;
 };
 
 let isLocked = false;

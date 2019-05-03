@@ -4,6 +4,7 @@ import CubeSimulator from './CubeSimulator';
 import CubeOperationStack from './CubeOperationStack';
 import CubeOperationStackHeader from './CubeOperationStackHeader';
 import ControlButton from './ControlButton';
+import { convertPath } from './shared';
 
 export default class CubeBody {
   constructor(tag, name, props) {
@@ -26,8 +27,15 @@ export default class CubeBody {
     this.child.onKeyUp(event);
   }
 
+  onSolve(solvePath) {
+    const convertedPatah = convertPath(solvePath);
+    this.child.onSolve(convertedPatah);
+  }
+
   render() {
-    const cubeSimulator = new CubeSimulator('div', 'cube-simulator', this.element);
+    const propsFunctionCubeSimulator = { onSolve: this.onSolve.bind(this) };
+
+    const cubeSimulator = new CubeSimulator('div', 'cube-simulator', this.element, propsFunctionCubeSimulator);
     cubeSimulator.render();
 
     const cubeContainer = new CubeContainer('div', 'cube-container', this.element);
@@ -39,7 +47,7 @@ export default class CubeBody {
     const cubeOperationStack = new CubeOperationStack('ul', 'cube-operation-stack', this.element);
     cubeOperationStack.render();
 
-    const controlButton = new ControlButton('div', 'control-button', this.element);
+    const controlButton = new ControlButton('div', 'control-button', this.element, cubeOperationStack);
     controlButton.render();
 
     this.child = controlButton;
