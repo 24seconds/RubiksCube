@@ -77,7 +77,8 @@ ul.cube-operation-stack {
   grid-row-start: 2;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-end;
+
   width: auto;
   height: 600px;
   padding: 0 0 0 0;
@@ -88,6 +89,7 @@ ul.cube-operation-stack {
 ul.cube-operation-stack > li {
   list-style-type: none;
   font-size: 40px;
+  width: 50%;
 }
 
 

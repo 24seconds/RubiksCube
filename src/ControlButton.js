@@ -22,8 +22,9 @@ import {
 let rotationPerFrame = 5;
 
 export default class ControlButton {
-  constructor(tag, name, props) {
+  constructor(tag, name, props, propsFunction) {
     this.props = props;
+    this.propsFunction = propsFunction;
 
     const element = document.createElement(tag);
     element.className = name;
@@ -50,6 +51,7 @@ export default class ControlButton {
     if (this.keyCombineMap[16] && [82, 76, 85, 68, 70, 66].includes(keyCode) && isLockAvailable()) {
       lockAquire();
       operationStack.push(`${keyCodeToString[keyCode]}'`);
+      this.propsFunction.forceRender(`${keyCodeToString[keyCode]}'`);
 
       this.rotateOneSide(keyCode, -1);
       return;
@@ -58,6 +60,7 @@ export default class ControlButton {
     if ([82, 76, 85, 68, 70, 66].includes(keyCode) && isLockAvailable()) {
       lockAquire();
       operationStack.push(keyCodeToString[keyCode]);
+      this.propsFunction.forceRender(keyCodeToString[keyCode]);
 
       this.rotateOneSide(keyCode);
       return;
