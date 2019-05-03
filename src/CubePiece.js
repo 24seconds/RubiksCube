@@ -2,7 +2,7 @@
 /* eslint-disable class-methods-use-this */
 /* eslint-env browser */
 import Qauternion from 'quaternion';
-import { rotateUsingQuaternion } from './shared';
+import { rotateUsingQuaternion, cubeLenth } from './shared';
 
 export default class CubePiece {
   constructor(tag, id, name, parent) {
@@ -84,59 +84,59 @@ export default class CubePiece {
     const leftElement = document.createElement('div');
 
     frontElement.className = 'face front';
-    frontElement.style.transform = `translate3d(${x}px, ${y}px, ${z}px) rotate3d(0, 1, 0, 90deg) translate3d(0, 0, -50px)`;
+    frontElement.style.transform = `translate3d(${x}px, ${y}px, ${z}px) rotate3d(0, 1, 0, 90deg) translate3d(0, 0, -${cubeLenth / 2}px)`;
 
-    if (x === -100) {
+    if (x === -cubeLenth) {
       frontElement.style.backgroundColor = 'red';
       frontElement.style.boxShadow = '0px 0px 0px 2px black inset';
     }
 
     backElement.className = 'face back';
-    backElement.style.transform = `translate3d(${x}px, ${y}px, ${z}px) rotate3d(0, 1, 0, 90deg) translate3d(0, 0, 50px)`;
+    backElement.style.transform = `translate3d(${x}px, ${y}px, ${z}px) rotate3d(0, 1, 0, 90deg) translate3d(0, 0, ${cubeLenth / 2}px)`;
 
-    if (x === 100) {
+    if (x === cubeLenth) {
       backElement.style.backgroundColor = 'orange';
       backElement.style.boxShadow = '0px 0px 0px 2px black inset';
     }
 
     upElement.className = 'face up';
-    upElement.style.transform = `translate3d(${x}px, ${y}px, ${z}px) rotate3d(1, 0, 0, 90deg) translate3d(0, 0, 50px)`;
+    upElement.style.transform = `translate3d(${x}px, ${y}px, ${z}px) rotate3d(1, 0, 0, 90deg) translate3d(0, 0, ${cubeLenth / 2}px)`;
 
-    if (y === -100) {
+    if (y === -cubeLenth) {
       upElement.style.backgroundColor = 'yellow';
       upElement.style.boxShadow = '0px 0px 0px 2px black inset';
     }
 
     downElement.className = 'face down';
-    downElement.style.transform = `translate3d(${x}px, ${y}px, ${z}px) rotate3d(1, 0, 0, 90deg) translate3d(0, 0, -50px)`;
+    downElement.style.transform = `translate3d(${x}px, ${y}px, ${z}px) rotate3d(1, 0, 0, 90deg) translate3d(0, 0, -${cubeLenth / 2}px)`;
 
-    if (y === 100) {
+    if (y === cubeLenth) {
       downElement.style.backgroundColor = 'white';
       downElement.style.boxShadow = '0px 0px 0px 2px black inset';
     }
 
     leftElement.className = 'face left';
-    leftElement.style.transform = `translate3d(${x}px, ${y}px, ${z}px) rotate3d(0,0,1,90deg) translate3d(0, 0, -50px)`;
+    leftElement.style.transform = `translate3d(${x}px, ${y}px, ${z}px) rotate3d(0,0,1,90deg) translate3d(0, 0, -${cubeLenth / 2}px)`;
 
-    if (z === -100) {
+    if (z === -cubeLenth) {
       leftElement.style.backgroundColor = 'blue';
       leftElement.style.boxShadow = '0px 0px 0px 2px black inset';
     }
 
     rightElement.className = 'face right';
-    rightElement.style.transform = `translate3d(${x}px, ${y}px, ${z}px) rotate3d(0,0,1,90deg) translate3d(0, 0, 50px)`;
+    rightElement.style.transform = `translate3d(${x}px, ${y}px, ${z}px) rotate3d(0,0,1,90deg) translate3d(0, 0, ${cubeLenth / 2}px)`;
 
-    if (z === 100) {
+    if (z === cubeLenth) {
       rightElement.style.backgroundColor = 'green';
       rightElement.style.boxShadow = '0px 0px 0px 2px black inset';
     }
 
-    frontElement.style.transform = 'rotate3d(0, 1, 0, 90deg) translate3d(0, 0, -50px)';
-    backElement.style.transform = 'rotate3d(0, 1, 0, 90deg) translate3d(0, 0, 50px)';
-    upElement.style.transform = 'rotate3d(1, 0, 0, 90deg) translate3d(0, 0, 50px)';
-    downElement.style.transform = 'rotate3d(1, 0, 0, 90deg) translate3d(0, 0, -50px)';
-    leftElement.style.transform = 'rotate3d(0,0,1,90deg) translate3d(0, 0, -50px)';
-    rightElement.style.transform = 'rotate3d(0,0,1,90deg) translate3d(0, 0, 50px)';
+    frontElement.style.transform = `rotate3d(0, 1, 0, 90deg) translate3d(0, 0, -${cubeLenth / 2}px)`;
+    backElement.style.transform = `rotate3d(0, 1, 0, 90deg) translate3d(0, 0, ${cubeLenth / 2}px)`;
+    upElement.style.transform = `rotate3d(1, 0, 0, 90deg) translate3d(0, 0, ${cubeLenth / 2}px)`;
+    downElement.style.transform = `rotate3d(1, 0, 0, 90deg) translate3d(0, 0, -${cubeLenth / 2}px)`;
+    leftElement.style.transform = `rotate3d(0,0,1,90deg) translate3d(0, 0, -${cubeLenth / 2}px)`;
+    rightElement.style.transform = `rotate3d(0,0,1,90deg) translate3d(0, 0, ${cubeLenth / 2}px)`;
 
     this.element.appendChild(frontElement);
     this.element.appendChild(backElement);

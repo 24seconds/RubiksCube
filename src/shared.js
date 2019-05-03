@@ -4,6 +4,8 @@
 import Qauternion from 'quaternion';
 import Cube from 'cubejs';
 
+export const cubeLenth = 80;
+
 export const initializeSolver = () => {
   console.log('start!');
   Cube.initSolver();
@@ -62,15 +64,15 @@ export const flushOperationStack = () => {
 };
 
 export const positionArray = [
-  [-100, -100, -100], [-100, -100, 0], [-100, -100, 100],
-  [-100, 0, -100], [-100, 0, 0], [-100, 0, 100],
-  [-100, 100, -100], [-100, 100, 0], [-100, 100, 100],
-  [0, -100, -100], [0, -100, 0], [0, -100, 100],
-  [0, 0, -100], [0, 0, 0], [0, 0, 100],
-  [0, 100, -100], [0, 100, 0], [0, 100, 100],
-  [100, -100, -100], [100, -100, 0], [100, -100, 100],
-  [100, 0, -100], [100, 0, 0], [100, 0, 100],
-  [100, 100, -100], [100, 100, 0], [100, 100, 100],
+  [-cubeLenth, -cubeLenth, -cubeLenth], [-cubeLenth, -cubeLenth, 0], [-cubeLenth, -cubeLenth, cubeLenth],
+  [-cubeLenth, 0, -cubeLenth], [-cubeLenth, 0, 0], [-cubeLenth, 0, cubeLenth],
+  [-cubeLenth, cubeLenth, -cubeLenth], [-cubeLenth, cubeLenth, 0], [-cubeLenth, cubeLenth, cubeLenth],
+  [0, -cubeLenth, -cubeLenth], [0, -cubeLenth, 0], [0, -cubeLenth, cubeLenth],
+  [0, 0, -cubeLenth], [0, 0, 0], [0, 0, cubeLenth],
+  [0, cubeLenth, -cubeLenth], [0, cubeLenth, 0], [0, cubeLenth, cubeLenth],
+  [cubeLenth, -cubeLenth, -cubeLenth], [cubeLenth, -cubeLenth, 0], [cubeLenth, -cubeLenth, cubeLenth],
+  [cubeLenth, 0, -cubeLenth], [cubeLenth, 0, 0], [cubeLenth, 0, cubeLenth],
+  [cubeLenth, cubeLenth, -cubeLenth], [cubeLenth, cubeLenth, 0], [cubeLenth, cubeLenth, cubeLenth],
 ];
 
 export const cubePieceArray = [];
@@ -119,17 +121,17 @@ export const keyCodeToRotation = rotation => ({
 export const getRotationcondition = (cubePiece, keyString) => {
   switch (keyString) {
     case 'L':
-      return cubePiece.currentPosition.z === -100;
+      return cubePiece.currentPosition.z === -cubeLenth;
     case 'R':
-      return cubePiece.currentPosition.z === 100;
+      return cubePiece.currentPosition.z === cubeLenth;
     case 'U':
-      return cubePiece.currentPosition.y === -100;
+      return cubePiece.currentPosition.y === -cubeLenth;
     case 'D':
-      return cubePiece.currentPosition.y === 100;
+      return cubePiece.currentPosition.y === cubeLenth;
     case 'F':
-      return cubePiece.currentPosition.x === -100;
+      return cubePiece.currentPosition.x === -cubeLenth;
     case 'B':
-      return cubePiece.currentPosition.x === 100;
+      return cubePiece.currentPosition.x === cubeLenth;
     default:
       return false;
   }

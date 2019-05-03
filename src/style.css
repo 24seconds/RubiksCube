@@ -1,7 +1,6 @@
 :root {
-    --piece-width: 100px;
-    --piece-height: 100px;
-    --piece-length: 100px;
+    --cube-length: 80px;
+    --cube-canvas: 240px;
 }
 
 body {
@@ -94,8 +93,8 @@ ul.cube-operation-stack > li {
 
 
 .cube-canvas {
-  width: 300px;
-  height: 300px;
+  width: var(--cube-canvas);
+  height: var(--cube-canvas);
   position: relative;
   transform-style: preserve-3d;
   display: flex;
@@ -108,8 +107,8 @@ ul.cube-operation-stack > li {
 
 .wrapper {
   display: block;
-  width: 100px;
-  height: 100px;
+  width: var(--cube-length);
+  height: var(--cube-length);
   position: absolute;
   transform-style: preserve-3d;
   backface-visibility: hidden;
@@ -120,9 +119,9 @@ ul.cube-operation-stack > li {
 .face {
     display: block;
     position: absolute;
-    width: var(--piece-width);
-    height: var(--piece-height);
-    line-height: 100px;
+    width: var(--cube-length);
+    height: var(--cube-length);
+    line-height: var(--cube-length);
     text-align: center;
     pointer-events: none;
 }
