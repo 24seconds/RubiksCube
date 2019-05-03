@@ -16,20 +16,22 @@ export default class CubeBody {
 
     this.element = element;
     this.props = props;
-    this.child = null;
+    this.childControlButton = null;
+    this.childCubeOperationStack = null;
   }
 
   onKeyDown(event) {
-    this.child.onKeyDown(event);
+    this.childControlButton.onKeyDown(event);
   }
 
   onKeyUp(event) {
-    this.child.onKeyUp(event);
+    this.childControlButton.onKeyUp(event);
   }
 
   onSolve(solvePath) {
     const convertedPatah = convertPath(solvePath);
-    this.child.onSolve(convertedPatah);
+    this.childControlButton.onSolve(convertedPatah);
+    this.childCubeOperationStack.flushOperationStack();
   }
 
   render() {
@@ -50,7 +52,8 @@ export default class CubeBody {
     const controlButton = new ControlButton('div', 'control-button', this.element, cubeOperationStack);
     controlButton.render();
 
-    this.child = controlButton;
+    this.childControlButton = controlButton;
+    this.childCubeOperationStack = cubeOperationStack;
 
     this.props.appendChild(this.element);
   }
