@@ -4,6 +4,7 @@ import CubeSimulator from './CubeSimulator';
 import CubeOperationStack from './CubeOperationStack';
 import CubeOperationStackHeader from './CubeOperationStackHeader';
 import ControlButton from './ControlButton';
+import CubeHowTo from './CubeHowTo';
 import { convertPath } from './shared';
 
 export default class CubeBody {
@@ -48,6 +49,9 @@ export default class CubeBody {
 
     const cubeOperationStack = new CubeOperationStack('ul', 'cube-operation-stack', this.element);
     cubeOperationStack.render();
+
+    const cubeHowTo = new CubeHowTo('div', 'cube-how-to-operate', this.element);
+    cubeHowTo.render();
 
     const controlButton = new ControlButton('div', 'control-button', this.element, cubeOperationStack);
     controlButton.render();
