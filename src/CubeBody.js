@@ -5,6 +5,7 @@ import CubeOperationStack from './CubeOperationStack';
 import CubeOperationStackHeader from './CubeOperationStackHeader';
 import ControlButton from './ControlButton';
 import CubeHowTo from './CubeHowTo';
+import ClassTemplate from './ClassTemplate';
 import { convertPath } from './shared';
 
 export default class CubeBody {
@@ -55,6 +56,9 @@ export default class CubeBody {
 
     const controlButton = new ControlButton('div', 'control-button', this.element, cubeOperationStack);
     controlButton.render();
+
+    const cubeBackground = new ClassTemplate('div', 'cube-background', '', this.element);
+    cubeBackground.render();
 
     this.childControlButton = controlButton;
     this.childCubeOperationStack = cubeOperationStack;
