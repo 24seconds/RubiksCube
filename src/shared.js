@@ -5,7 +5,8 @@
 import Qauternion from 'quaternion';
 import Cube from 'cubejs';
 
-export const cubeLenth = 80;
+export const cubeLenth = 50;
+// export const cubeLenth = 80;
 
 export const initializeSolver = () => {
   console.log('start!');

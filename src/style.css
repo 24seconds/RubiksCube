@@ -1,6 +1,8 @@
 :root {
     --cube-length: 80px;
     --cube-canvas: 240px;
+    --mobile-cube-length: 50px;
+    --mobile-cube-canvas: 150px;
 }
 
 body {
@@ -51,8 +53,12 @@ h1 {
   font-size: 16px;
 }
 
+.cube-simulator > button:hover {
+  background-color: #cccccc;
+}
+
 .cube-simulator > button:disabled, button[disabled]{
-  /* border: 1px solid #999999; */
+  border: 1px solid #999999;
   background-color: #cccccc;
   color: #666666;
 }
@@ -128,13 +134,13 @@ ul.cube-operation-stack > li:first-child {
 }
 
 .face {
-    display: block;
-    position: absolute;
-    width: var(--cube-length);
-    height: var(--cube-length);
-    line-height: var(--cube-length);
-    text-align: center;
-    pointer-events: none;
+  display: block;
+  position: absolute;
+  width: var(--cube-length);
+  height: var(--cube-length);
+  line-height: var(--cube-length);
+  text-align: center;
+  pointer-events: none;
 }
 
 .control-button {
@@ -152,7 +158,6 @@ ul.cube-operation-stack > li:first-child {
 
 .front, .back, .up, .down, .right, .left {
   background-color: rgb(0, 0, 0);
-  font-size: 22px;
 }
 
 .cube-controller-container {
@@ -240,6 +245,7 @@ div.cube-how-to-operate > div:first-child{
   border-color: #fff transparent #fff transparent;
   animation: loading-animation 1.5s linear infinite;
 }
+
 @keyframes loading-animation {
   0% {
     transform: rotate(0deg);
@@ -247,4 +253,175 @@ div.cube-how-to-operate > div:first-child{
   100% {
     transform: rotate(360deg);
   }
+}
+
+@media only screen and (max-width: 720px) {
+  body {
+    background-color: rgba(163, 43, 43, 0.397);
+  }
+  
+  h1 {
+    font-size: 22px;
+    height: 28px;
+  }
+
+  .header {
+    height: 60px;
+    width: 100%;
+    
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    /* padding: 5px 10px 0 10px; */
+    padding: 0 0 0 0;
+  }
+
+  .header > div {
+    margin: 0 0 0 0;
+    font-size: 0px;
+  }
+
+  .header > div > a {
+    font-size: 15px;
+  }
+
+  .cube-body {
+    grid-template-rows: 1.5fr 3.3fr 0.3fr 25px auto;
+    height: calc(100vh - 71px);
+    width: 100%;
+    /* background-color: #0077C8; */
+    box-sizing: content-box;
+  }
+
+  .cube-simulator {
+    grid-column: 1 / -1;
+    justify-content: center;
+    height: 100%;
+  }
+
+  .cube-simulator > button {
+    height: 80%;
+    max-height: 100px;
+    font-size: 14px;
+  }
+
+  .cube-container {
+    grid-column: 1 / -1;
+    height: 100%;
+    padding: 5px 0 5px 0;
+  }
+
+  .cube-operation-stack-header {
+    display: none;
+  }
+
+  ul.cube-operation-stack {
+    grid-row: 4;
+    grid-column: 1 / -1;
+    background-color: rgba(238, 232, 170, 0.459);
+    flex-direction: row;
+    align-items: initial;
+    height: 100%;
+    border: none;
+    
+    display: flex;
+  }
+
+  ul.cube-operation-stack > li {
+    width: auto;
+    height: 100%;
+    margin-right: 15px;
+    font-size: 20px;
+  }
+
+  ul.cube-operation-stack > li:first-child {
+    margin-left: 15px;
+  }
+
+
+  .cube-canvas {
+    width: var(--mobile-cube-canvas);
+    height: var(--mobile-cube-canvas);
+  }
+
+  .wrapper {
+    width: var(--mobile-cube-length);
+    height: var(--mobile-cube-length);
+  }
+
+  .face {
+    width: var(--mobile-cube-length);
+    height: var(--mobile-cube-length);
+    line-height: var(--mobile-cube-length);
+  }
+
+  .control-button {
+    height: 100%;
+    grid-row-start: 5;
+    background-color: transparent;
+    border-top: 2px solid rgb(78, 73, 73);
+    border-bottom: 2px solid rgb(78, 73, 73);
+    box-sizing: border-box;
+    grid-column: 1 / -1;
+  }
+
+  .cube-controller-container {
+    border-left: 2px solid rgb(78, 73, 73);
+  }
+
+  .cube-controller-container.one {
+    background-color: transparent;
+    border-bottom: 2px solid rgb(78, 73, 73);
+  }
+
+  .cube-controller-container.two {
+    background-color: transparent;
+  }
+
+  .cube-button {
+    width: 25%;
+  }
+
+  .shift-button {
+    width: 60px;
+    height: 60px;
+    font-size: 12px;
+  }
+
+  div.cube-how-to-operate {
+    border-top: 2px solid rgb(78, 73, 73);    
+    grid-area: 3 / 1 / 4 / -1;
+    border-bottom: solid 2px rgb(78, 73, 73);
+  }
+
+  div.cube-how-to-operate > div {
+    font-size: 14px;
+    margin: 0 0 0 0;
+    padding-left: 0px;
+    text-align: center;
+  }
+
+  div.cube-how-to-operate > div:first-child{
+    margin: 0 0 0 0;
+  }
+
+  .cube-background {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    grid-row: 1 / 4;
+    grid-column: 1 / -1;
+  }
+
+  .loading-background {
+    width: 100%;
+    height: calc(100vh - 71px);
+    position: fixed;
+  }
+  
+  .loading-ring {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  } 
 }
