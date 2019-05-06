@@ -18,6 +18,8 @@ import {
   getSolvePath,
   flushOperationStack,
   possibleOperation,
+  buttonLockRelease,
+  butttonLockAvailable,
 } from './shared';
 
 let rotationPerFrame = 5;
@@ -47,6 +49,8 @@ export default class ControlButton {
 
   onKeyDown(event) {
     const { keyCode } = event;
+
+    if (!butttonLockAvailable()) { return; }
 
     this.keyCombineMap[keyCode] = event.type === 'keydown';
 
@@ -164,6 +168,7 @@ export default class ControlButton {
     if (solvePath.length === 0) {
       rotationPerFrame = 5;
       flushOperationStack();
+      buttonLockRelease();
       return 1;
     }
 
@@ -215,6 +220,7 @@ export default class ControlButton {
     if (scramblePath.length === 0) {
       this.scramblePath = null;
       rotationPerFrame = 5;
+      buttonLockRelease();
       return 1;
     }
 

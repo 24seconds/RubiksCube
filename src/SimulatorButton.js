@@ -1,5 +1,10 @@
 /* eslint-env browser */
-import { initializeSolver, getSolvePath, operationStack } from './shared';
+import {
+  initializeSolver,
+  getSolvePath,
+  operationStack,
+  buttonLockAcquire,
+} from './shared';
 import Loading from './Loading';
 
 export default class SimulatorButton {
@@ -20,10 +25,13 @@ export default class SimulatorButton {
   async onSimulate() {
     const { onSimulate } = this.propsFunction;
 
-    await this.loading.onLoading();
-    this.onSolve();
-    this.loading.remove();
-    onSimulate();
+    if (buttonLockAcquire()) {
+      await this.loading.onLoading();
+
+      this.onSolve();
+      this.loading.remove();
+      onSimulate();
+    }
   }
 
   onSolve() {
@@ -35,6 +43,14 @@ export default class SimulatorButton {
     const solvePath = getSolvePath(operationStack);
     const { setSolvePath } = this.propsFunction;
     setSolvePath(solvePath);
+  }
+
+  onDisabled() {
+    this.element.disabled = true;
+  }
+
+  onEnabled() {
+    this.element.disabled = false;
   }
 
   render() {

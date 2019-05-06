@@ -56,6 +56,37 @@ export const lockAquire = () => { isLocked = true; };
 export const lockRelease = () => { isLocked = false; };
 export const isLockAvailable = () => !isLocked;
 
+let buttonLocked = false;
+const buttonLockWatchList = [];
+
+export const registerButtonLockWatchList = (element) => {
+  buttonLockWatchList.push(element);
+};
+
+export const buttonLockAcquire = () => {
+  if (buttonLocked) { return false; }
+
+  buttonLocked = true;
+
+  buttonLockWatchList.forEach((component) => {
+    component.onDisabled();
+  });
+
+  return buttonLocked;
+};
+
+export const buttonLockRelease = () => {
+  buttonLocked = false;
+
+  buttonLockWatchList.forEach((component) => {
+    component.onEnabled();
+  });
+
+  return true;
+};
+
+export const butttonLockAvailable = () => !buttonLocked;
+
 export const operationStack = [];
 export const flushOperationStack = () => {
   const len = operationStack.length;

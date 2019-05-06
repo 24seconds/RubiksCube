@@ -1,4 +1,5 @@
 /* eslint-env browser */
+import { buttonLockAcquire } from './shared';
 
 export default class ScrambleButton {
   constructor(tag, name, text, props, propsFunction) {
@@ -14,7 +15,17 @@ export default class ScrambleButton {
 
   onScramble() {
     const { onScramble } = this.propsFunction;
-    onScramble();
+    if (buttonLockAcquire()) {
+      onScramble();
+    }
+  }
+
+  onDisabled() {
+    this.element.disabled = true;
+  }
+
+  onEnabled() {
+    this.element.disabled = false;
   }
 
   render() {
