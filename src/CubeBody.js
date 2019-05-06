@@ -51,7 +51,7 @@ export default class CubeBody {
     const cubeContainer = new CubeContainer('div', 'cube-container', this.element);
     cubeContainer.render();
 
-    const cubeOperationStackHeader = new CubeOperationStackHeader('div', 'cube-operation-stack-header', 'Operation Stack', this.element);
+    const cubeOperationStackHeader = new CubeOperationStackHeader('div', 'cube-operation-stack-header', 'OP Stack', this.element);
     cubeOperationStackHeader.render();
 
     const cubeOperationStack = new CubeOperationStack('ul', 'cube-operation-stack', this.element);
@@ -69,6 +69,6 @@ export default class CubeBody {
     this.childControlButton = controlButton;
     this.childCubeOperationStack = cubeOperationStack;
 
-    this.props.appendChild(this.element);
+    this.props.insertBefore(this.element, this.props.children[1]);
   }
 }

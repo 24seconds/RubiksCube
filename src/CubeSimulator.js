@@ -39,7 +39,7 @@ export default class CubeSimulator {
     };
     const propsFunctionScrambleButton = { onScramble: this.onScramble.bind(this) };
 
-    const simulatorButton = new SimulatorButton('button', 'simulator-button', 'Simulate Solution', this.element, propsFunctionSimulateButton);
+    const simulatorButton = new SimulatorButton('button', 'simulator-button', 'Solve', this.element, propsFunctionSimulateButton);
     const scrambleButton = new ScrambleButton('button', 'scramble-button', 'Scramble Cube', this.element, propsFunctionScrambleButton);
 
     registerButtonLockWatchList(simulatorButton);
