@@ -15,7 +15,6 @@ import {
   lockAquire,
   lockRelease,
   operationStack,
-  getSolvePath,
   flushOperationStack,
   possibleOperation,
   buttonLockRelease,
@@ -69,18 +68,6 @@ export default class ControlButton {
       this.propsFunction.forceRender(keyCodeToString[keyCode]);
 
       this.rotateOneSide(keyCode);
-      return;
-    }
-
-    if (this.keyCombineMap[83] && isLockAvailable()) {
-      const solvePath = getSolvePath(operationStack);
-
-      lockAquire();
-      const convertedPath = this.convertPath(solvePath);
-
-      rotationPerFrame = 10;
-      this.solveCube(convertedPath);
-      lockRelease();
     }
   }
 
@@ -135,26 +122,6 @@ export default class ControlButton {
 
   addEvent() {
     this.element.addEventListener('click', this.onClick.bind(this));
-  }
-
-  convertPath(solvePath) {
-    const returnPath = [];
-
-    solvePath.forEach((value) => {
-      switch (value.substr(-1)) {
-        case '2': {
-          returnPath.push(value.substring(0, 1));
-          returnPath.push(value.substring(0, 1));
-          break;
-        }
-        default: {
-          returnPath.push(value);
-          break;
-        }
-      }
-    });
-
-    return returnPath;
   }
 
   onSolve(convertedPath) {
