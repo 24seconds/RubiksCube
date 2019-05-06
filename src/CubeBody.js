@@ -36,8 +36,14 @@ export default class CubeBody {
     this.childCubeOperationStack.flushOperationStack();
   }
 
+  onScramble() {
+    this.childControlButton.onScramble();
+  }
+
   render() {
-    const propsFunctionCubeSimulator = { onSolve: this.onSolve.bind(this) };
+    const propsFunctionCubeSimulator = {
+      onSolve: this.onSolve.bind(this), onScramble: this.onScramble.bind(this)
+    };
 
     const cubeSimulator = new CubeSimulator('div', 'cube-simulator', this.element, propsFunctionCubeSimulator);
     cubeSimulator.render();

@@ -17,6 +17,7 @@ import {
   operationStack,
   getSolvePath,
   flushOperationStack,
+  possibleOperation,
 } from './shared';
 
 let rotationPerFrame = 5;
@@ -37,6 +38,7 @@ export default class ControlButton {
 
     this.dummy = '';
     this.keyCombineMap = {};
+    this.scramblePath = null;
   }
 
   onClick() {
@@ -105,6 +107,10 @@ export default class ControlButton {
 
       lockRelease();
 
+      if (this.scramblePath) {
+        this.scrambleCube(this.scramblePath);
+      }
+
       if (solvePath) {
         this.solveCube(solvePath);
       }
@@ -171,6 +177,57 @@ export default class ControlButton {
       }
       default: {
         this.rotateOneSide(stringToKeyCode[key.charAt(0)], 1, solvePath);
+        break;
+      }
+    }
+
+    return 1;
+  }
+
+  getRandom(min, max) {
+    return Math.floor(Math.random() * Math.floor(max - min) + min);
+  }
+
+  onScramble() {
+    const scrambleCount = this.getRandom(10, 20);
+    const scramblePath = [];
+    for (let i = 0; i < scrambleCount; i += 1) {
+      const isClockwise = Math.random() > 1 / 2;
+      const randomOperation = possibleOperation[this.getRandom(0, possibleOperation.length)];
+      if (isClockwise) {
+        scramblePath.push(randomOperation);
+        operationStack.push(randomOperation);
+        this.propsFunction.forceRender(randomOperation);
+      } else {
+        scramblePath.push(`${randomOperation}'`);
+        operationStack.push(`${randomOperation}'`);
+        this.propsFunction.forceRender(`${randomOperation}'`);
+      }
+    }
+
+    this.scramblePath = scramblePath;
+
+    rotationPerFrame = 10;
+    this.scrambleCube(this.scramblePath);
+  }
+
+  scrambleCube(scramblePath) {
+    if (scramblePath.length === 0) {
+      this.scramblePath = null;
+      rotationPerFrame = 5;
+      return 1;
+    }
+
+    const key = scramblePath[0];
+    scramblePath.shift();
+
+    switch (key.substr(-1)) {
+      case "'": {
+        this.rotateOneSide(stringToKeyCode[key.charAt(0)], -1);
+        break;
+      }
+      default: {
+        this.rotateOneSide(stringToKeyCode[key.charAt(0)], 1);
         break;
       }
     }

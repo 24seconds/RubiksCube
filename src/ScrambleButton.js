@@ -5,16 +5,16 @@ export default class ScrambleButton {
     const element = document.createElement(tag);
     element.className = name;
     element.textContent = text;
-    element.onclick = this.onSimulate.bind(this);
+    element.onclick = this.onScramble.bind(this);
     this.element = element;
 
     this.props = props;
     this.propsFunction = propsFunction;
   }
 
-  onSimulate() {
-    const { onSimulate } = this.propsFunction;
-    onSimulate();
+  onScramble() {
+    const { onScramble } = this.propsFunction;
+    onScramble();
   }
 
   render() {

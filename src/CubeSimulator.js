@@ -24,15 +24,22 @@ export default class CubeSimulator {
     const { onSolve } = this.propsFunction;
 
     onSolve(this.solvePath);
+    this.solvePath = null;
+  }
+
+  onScramble() {
+    const { onScramble } = this.propsFunction;
+    onScramble();
   }
 
   render() {
     const propsFunctionSolveButton = { setSolvePath: this.setSolvePath.bind(this) };
     const propsFunctionSimulateButton = { onSimulate: this.onSimulate.bind(this) };
+    const propsFunctionScrambleButton = { onScramble: this.onScramble.bind(this) };
 
     const solveButton = new SolveButton('button', 'solve-button', 'Get Solution', this.element, propsFunctionSolveButton);
     const simulatorButton = new SimulatorButton('button', 'simulator-button', 'Simulate Solution', this.element, propsFunctionSimulateButton);
-    const scrambleButton = new ScrambleButton('button', 'scramble-button', 'Scramble Cube', this.element);
+    const scrambleButton = new ScrambleButton('button', 'scramble-button', 'Scramble Cube', this.element, propsFunctionScrambleButton);
 
     solveButton.render();
     simulatorButton.render();

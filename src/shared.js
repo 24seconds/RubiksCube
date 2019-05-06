@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable import/no-extraneous-dependencies */
 // import { Quaternion } from 'quaternion';
 // const Qauternion = require('quaternion');
@@ -252,3 +253,5 @@ export const rotateUsingQuaternion = (rotationAngle, currentQuaternion) => {
 
   return [newQuaternion.conjugate().toMatrix4(), newQuaternion];
 };
+
+export const possibleOperation = ['R', 'L', 'U', 'D', 'F', 'B'];
