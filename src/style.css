@@ -205,3 +205,39 @@ div.cube-how-to-operate > div:first-child{
   background-color: palegoldenrod;
   z-index: -1;
 }
+
+.loading-background {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  height: 620px;
+  background-color: #00000041;
+  z-index: 9999;
+}
+
+.loading-ring {
+  display: inline-block;
+  width: 128px;
+  height: 128px;
+}
+.loading-ring:after {
+  content: " ";
+  display: block;
+  width: 92px;
+  height: 92px;
+  margin: 2px;
+  border-radius: 50%;
+  border: 5px solid #fff;
+  border-color: #fff transparent #fff transparent;
+  animation: loading-animation 1.5s linear infinite;
+}
+@keyframes loading-animation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
