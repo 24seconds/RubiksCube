@@ -1,7 +1,6 @@
 /* eslint-env browser */
 
 import SimulatorButton from './SimulatorButton';
-import SolveButton from './SolveButton';
 import ScrambleButton from './ScrambleButton';
 
 export default class CubeSimulator {
@@ -40,11 +39,9 @@ export default class CubeSimulator {
     };
     const propsFunctionScrambleButton = { onScramble: this.onScramble.bind(this) };
 
-    const solveButton = new SolveButton('button', 'solve-button', 'Get Solution', this.element, propsFunctionSolveButton);
     const simulatorButton = new SimulatorButton('button', 'simulator-button', 'Simulate Solution', this.element, propsFunctionSimulateButton);
     const scrambleButton = new ScrambleButton('button', 'scramble-button', 'Scramble Cube', this.element, propsFunctionScrambleButton);
 
-    solveButton.render();
     simulatorButton.render();
     scrambleButton.render();
 
