@@ -6,10 +6,10 @@ export default class CubeHowTo {
     element.className = name;
     element.innerHTML = `
       <div>
-        KeyBoard : (R, U, F, L, D, B) + SHIFT (Click the Cube First!)
+        KeyBoard : (R, U, F, L, D, B) + SHIFT
       </div>
       <div>
-        Mouse/Touch : Click/Touch Buttons below
+        Mouse/Touch : Buttons + SHIFT
       </div>
       `;
     this.element = element;
