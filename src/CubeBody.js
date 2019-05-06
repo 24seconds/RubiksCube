@@ -42,7 +42,7 @@ export default class CubeBody {
 
   render() {
     const propsFunctionCubeSimulator = {
-      onSolve: this.onSolve.bind(this), onScramble: this.onScramble.bind(this)
+      onSolve: this.onSolve.bind(this), onScramble: this.onScramble.bind(this),
     };
 
     const cubeSimulator = new CubeSimulator('div', 'cube-simulator', this.element, propsFunctionCubeSimulator);
