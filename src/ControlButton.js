@@ -40,6 +40,8 @@ export default class ControlButton {
     this.dummy = '';
     this.keyCombineMap = {};
     this.scramblePath = null;
+    this.controlButtonLocked = false;
+    this.controlButtonLockWatchList = [];
   }
 
   onClick() {
@@ -55,6 +57,7 @@ export default class ControlButton {
 
     if (this.keyCombineMap[16] && [82, 76, 85, 68, 70, 66].includes(keyCode) && isLockAvailable()) {
       lockAquire();
+      this.buttonLockAcquire();
       operationStack.push(`${keyCodeToString[keyCode]}'`);
       this.propsFunction.forceRender(`${keyCodeToString[keyCode]}'`);
 
@@ -75,6 +78,10 @@ export default class ControlButton {
     const { keyCode } = event;
 
     this.keyCombineMap[keyCode] = event.type === 'keydown';
+
+    if (keyCode === 16) {
+      this.buttonLockRelease();
+    }
   }
 
   rotateOneSide(keyCode, isPrime = 1, solvePath = null) {
@@ -208,13 +215,48 @@ export default class ControlButton {
     return 1;
   }
 
+  registerButtonLockWatchList(element) {
+    this.controlButtonLockWatchList.push(element);
+  }
+
+  buttonLockAcquire() {
+    if (this.controlButtonLocked) { return false; }
+
+    this.controlButtonLocked = true;
+
+    this.controlButtonLockWatchList.forEach((component) => {
+      component.onDisabled();
+    });
+
+    return this.controlButtonLocked;
+  }
+
+  buttonLockRelease() {
+    if (!this.controlButtonLocked) { return true; }
+    this.controlButtonLocked = false;
+
+    this.controlButtonLockWatchList.forEach((component) => {
+      component.onEnabled();
+    });
+
+    return true;
+  }
+
   render() {
     this.props.appendChild(this.element);
-    const propsFunctionCubeButton = { onKeyDown: this.onKeyDown.bind(this) };
-    const propsFunctionShiftButton = { onKeyDown: this.onKeyDown.bind(this), onKeyUp: this.onKeyUp.bind(this) };
+    const propsFunctionCubeButton = {
+      onKeyDown: this.onKeyDown.bind(this),
+      onKeyUp: this.onKeyUp.bind(this),
+    };
+    const propsFunctionShiftButton = {
+      onKeyDown: this.onKeyDown.bind(this),
+      onKeyUp: this.onKeyUp.bind(this),
+      buttonLockAcquire: this.buttonLockAcquire.bind(this),
+    };
 
     const shiftButton = new ShiftButton('button', 'shift-button', this.element, 'SHIFT', propsFunctionShiftButton);
     shiftButton.render();
+    this.registerButtonLockWatchList(shiftButton);
 
     const cubeControllerContainer1 = new CubeControllerContainer(
       'div', 'cube-controller-container one', this.element, propsFunctionCubeButton, ['R', 'U', 'F'],

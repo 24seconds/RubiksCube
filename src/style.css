@@ -96,7 +96,7 @@ ul.cube-operation-stack {
   width: auto;
   padding: 0 0 0 0;
   margin: 0 0 0 0;
-  overflow: auto;
+  overflow-y: hidden;
   border-left: solid 3px rgb(78, 73, 73);
 }
 

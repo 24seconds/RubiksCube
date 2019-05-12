@@ -9,7 +9,7 @@ export default class CubeHowTo {
         KeyBoard : (R, U, F, L, D, B) + SHIFT
       </div>
       <div>
-        Mouse/Touch : Buttons + SHIFT
+        Mouse/Touch : Buttons + SHIFT Button
       </div>
       `;
     this.element = element;
