@@ -3,7 +3,7 @@
 
 https://24seconds.github.io/rubikscube/
 
-### This proeject uses HTML (no canvas), CSS. javascript without Framework like React, Vue or Angular.
+### This proeject is implemented only `HTML(no canvas), CSS. javascript`. No Framework is used such as React, Vue or Angular.
 
 ## Table of Contents
 
