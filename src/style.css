@@ -1,8 +1,14 @@
 :root {
-    --cube-length: 80px;
-    --cube-canvas: 240px;
+    --cube-length: 50px;
+    --cube-canvas: 150px;
     --mobile-cube-length: 50px;
     --mobile-cube-canvas: 150px;
+    --background-cube-simulator: cornsilk;
+    --background-cube-operation-stack-header: cornsilk;
+    --backgorund-cube-operation-stack: blanchedalmond;
+    --background-cube-container: blanchedalmond;
+    --background-cube-how-to-operate: rgba(244, 165, 96, 0.308);
+    --background-control-button: rgba(255, 160, 122, 0.479);
 }
 
 body {
@@ -34,23 +40,28 @@ h1 {
   display: grid;
   height: calc(100% - 76px);
   grid-template-columns: 80% 20%;
-  grid-template-rows: 100px 450px 70px auto;
+  grid-template-rows: 3fr 8fr 1fr 3fr;
+  z-index: -9999;
 }
 
 .cube-simulator {
   grid-row-start: 1;
-  height: 100px;
+  grid-column: 1 / -2;
+  height: 100%;
   display: flex;
   align-items: center;
+  border-bottom: solid 3px rgb(78, 73, 73);
+  box-sizing: content-box;
+  background-color: var(--background-cube-simulator);
 }
 
 .cube-simulator > button {
   margin: 0px 15px 0px 15px;
   width: 150px;
-  height: 50px;
+  height: 80%;
   border-radius: 20px;
   border: 2px solid rgb(78, 73, 73);
-  font-size: 16px;
+  font-size: 3vh;
 }
 
 .cube-simulator > button:hover {
@@ -65,9 +76,10 @@ h1 {
 
 .cube-container {
   grid-row-start: 2;
+  grid-column: 1 / -2;
   width: auto;
-  height: 400px;
-  padding: 25px 0 25px 0;
+  height: 100%;
+  min-height: 300px;
   transform-style: preserve-3d;
   display: flex;
   justify-content: center;
@@ -84,6 +96,8 @@ h1 {
   border-bottom: solid 3px rgb(78, 73, 73);
   border-left: solid 3px rgb(78, 73, 73);
   text-align: center;
+  height: 100%;
+  background-color: var(--background-cube-operation-stack-header);
 }
 
 ul.cube-operation-stack {
@@ -96,8 +110,11 @@ ul.cube-operation-stack {
   width: auto;
   padding: 0 0 0 0;
   margin: 0 0 0 0;
-  overflow-y: hidden;
+  overflow-y: scroll;
   border-left: solid 3px rgb(78, 73, 73);
+  border-top: solid 3px rgb(78, 73, 73);
+  box-sizing: content-box;
+  background-color: var(--backgorund-cube-operation-stack);
 }
 
 ul.cube-operation-stack > li {
@@ -147,7 +164,7 @@ ul.cube-operation-stack > li:first-child {
   grid-row-start: 4;
   grid-column: 1 / 2;
   width: 100%;
-  background-color: rgba(200, 57, 0, 0.418);
+  background-color: var(--background-control-button);
   font-size: 18px;
   text-align: center;
   display: grid;
@@ -164,20 +181,20 @@ ul.cube-operation-stack > li:first-child {
   grid-column: 2 / -1;
   display: flex;
   flex-wrap: wrap;
-  height: 50px;
+  height: 100%;
   width: 100%;
   justify-content: space-around;
   align-items: center;
+  border-left: 2px solid rgb(78, 73, 73);
 }
 
 .cube-controller-container.one {
   grid-row: 1 / 2;
-  background-color: brown;
+  border-bottom: 2px solid rgb(78, 73, 73);
 }
 
 .cube-controller-container.two {
   grid-row: 2 / 3;
-  background-color: blue;
 }
 
 .cube-button {
@@ -199,8 +216,15 @@ ul.cube-operation-stack > li:first-child {
   border-radius: 50%;
 }
 
+div.cube-how-to-operate {
+  border-top: 2px solid rgb(78, 73, 73);
+  grid-area: 3 / 1 / 4 / -2;
+  border-bottom: solid 2px rgb(78, 73, 73);
+  background-color: var(--background-cube-how-to-operate);
+}
+
 div.cube-how-to-operate > div {
-  font-size: 22px;
+  font-size: 3vh;
   padding-left: 15px;
 }
 
@@ -209,13 +233,13 @@ div.cube-how-to-operate > div:first-child{
 }
 
 .cube-background {
-  position: absolute;
-  width: 80%;
-  height: 620px;
-  grid-row: 2 / 4;
+  position: relative;
+  width: 100%;
+  width: 100%;
+  grid-row: 2 / 3;
   grid-column: 1 / 2;
-  background-color: palegoldenrod;
   z-index: -1;
+  background-color: var(--background-cube-container);
 }
 
 .loading-background {
@@ -223,8 +247,8 @@ div.cube-how-to-operate > div:first-child{
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 80%;
-  height: 620px;
+  width: 100%;
+  height: calc(100% - 76px);
   background-color: #00000041;
   z-index: 9999;
 }
@@ -256,28 +280,23 @@ div.cube-how-to-operate > div:first-child{
 }
 
 @media only screen and (max-width: 720px) {
-  body {
-    background-color: rgba(163, 43, 43, 0.397);
-  }
-  
   h1 {
     font-size: 22px;
     height: 28px;
+    margin: 0 0 0 10px;
   }
 
   .header {
     height: 60px;
     width: 100%;
-    
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
-    /* padding: 5px 10px 0 10px; */
     padding: 0 0 0 0;
   }
 
   .header > div {
-    margin: 0 0 0 0;
+    margin: 0 0 0 10px;
     font-size: 0px;
   }
 
@@ -286,28 +305,28 @@ div.cube-how-to-operate > div:first-child{
   }
 
   .cube-body {
-    grid-template-rows: 1.5fr 3.3fr 0.3fr 25px auto;
-    height: calc(100vh - 71px);
+    grid-template-rows: 3fr 8fr 1fr 40px 3fr;
+    height: calc(100vh - 61px);
     width: 100%;
-    /* background-color: #0077C8; */
     box-sizing: content-box;
   }
 
   .cube-simulator {
     grid-column: 1 / -1;
     justify-content: center;
-    height: 100%;
   }
 
   .cube-simulator > button {
-    height: 80%;
     max-height: 100px;
-    font-size: 14px;
+    font-size: 2.5vh;
+  }
+
+  .cube-simulator > button:hover {
+    background-color: rgb(221, 221, 221);
   }
 
   .cube-container {
     grid-column: 1 / -1;
-    height: 100%;
     padding: 5px 0 5px 0;
   }
 
@@ -318,13 +337,12 @@ div.cube-how-to-operate > div:first-child{
   ul.cube-operation-stack {
     grid-row: 4;
     grid-column: 1 / -1;
-    background-color: rgba(238, 232, 170, 0.459);
+    background-color: burlywood;
     flex-direction: row;
     align-items: initial;
     height: 100%;
     border: none;
-    
-    display: flex;
+    overflow-y: hidden;
   }
 
   ul.cube-operation-stack > li {
@@ -358,28 +376,16 @@ div.cube-how-to-operate > div:first-child{
   .control-button {
     height: 100%;
     grid-row-start: 5;
-    background-color: transparent;
     border-top: 2px solid rgb(78, 73, 73);
     border-bottom: 2px solid rgb(78, 73, 73);
     box-sizing: border-box;
     grid-column: 1 / -1;
   }
 
-  .cube-controller-container {
-    border-left: 2px solid rgb(78, 73, 73);
-  }
-
-  .cube-controller-container.one {
-    background-color: transparent;
-    border-bottom: 2px solid rgb(78, 73, 73);
-  }
-
-  .cube-controller-container.two {
-    background-color: transparent;
-  }
-
   .cube-button {
     width: 25%;
+    height: 70%;
+    font-size: 2.5vh;
   }
 
   .shift-button {
@@ -389,13 +395,13 @@ div.cube-how-to-operate > div:first-child{
   }
 
   div.cube-how-to-operate {
-    border-top: 2px solid rgb(78, 73, 73);    
+    border-top: 2px solid rgb(78, 73, 73);
     grid-area: 3 / 1 / 4 / -1;
     border-bottom: solid 2px rgb(78, 73, 73);
   }
 
   div.cube-how-to-operate > div {
-    font-size: 14px;
+    font-size: 2.5vh;
     margin: 0 0 0 0;
     padding-left: 0px;
     text-align: center;
@@ -406,16 +412,11 @@ div.cube-how-to-operate > div:first-child{
   }
 
   .cube-background {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    grid-row: 1 / 4;
     grid-column: 1 / -1;
   }
 
   .loading-background {
-    width: 100%;
-    height: calc(100vh - 71px);
+    height: calc(100vh - 61px);
     position: fixed;
   }
   
