@@ -5,6 +5,14 @@ https://24seconds.github.io/rubikscube/
 
 ### This proeject is implemented only `HTML(no canvas), CSS. javascript`. No Framework is used such as React, Vue or Angular.
 
+## Mobile View
+<img src="https://imgur.com/w7xYwSj.png" width="250">
+<img src="https://imgur.com/VFUwmWK.gif" width="250">
+
+## Desktop View
+<img src="https://imgur.com/lLoDLiG.jpg">
+
+
 ## Table of Contents
 
 ## - [Before we start](#before-we-start)
