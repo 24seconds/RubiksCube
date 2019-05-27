@@ -27,7 +27,7 @@ https://24seconds.github.io/rubikscube/
 - [`Herbert Kociemba's` two-phase algorithm](#herbert-kociemba's-two-phase-algorithm)
 
 ## - [How to design layout in mobile and desktop view](#how-to-design-layout)
-- [CSS Grid and Media query](#css-grid-and-media-query)
+- [CSS Grid](#css-grid)
 
 ## - [Operate and Simulate!](#operate-and-simulate)
 - [How to operate and simulate cube](#how-to-operate-and-simulate-cube)
