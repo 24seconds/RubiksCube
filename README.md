@@ -26,6 +26,9 @@ https://24seconds.github.io/rubikscube/
 ## - [How to solve Cube](#how-to-solve-cube)
 - [`Herbert Kociemba's` two-phase algorithm](#herbert-kociemba's-two-phase-algorithm)
 
+## - [How to design layout in mobile and desktop view](#how-to-design-layout)
+- [CSS Grid](#css-grid)
+
 ## - [Operate and Simulate!](#operate-and-simulate)
 - [How to operate and simulate cube](#how-to-operate-and-simulate-cube)
 
@@ -130,6 +133,43 @@ There are many ways to solve rubik's cube. In this project, to give a solution t
 
 Luckily, there is javascript library which implements `two-phase algorithm`, I used [this library](https://www.npmjs.com/package/cubejs), named `cubejs`.
 
+
+## How to design layout
+
+### CSS Grid
+
+When I start this project, I wanted to give appropriate user experience depend on their environment. So I decided to support mobile and desktop view both. Therefore, in Desktop, you can rotate Cube using either keyboard or mouse - in mouse, you can click rotation Buttons.
+
+Also, to give better layout structure, CSS grid is used. You can check that `operation stack`'s position is changed depend on your browser width.
+
+```css
+ /* desktop view */
+.cube-operation-stack-header {
+  grid-area: 1 / 2 / 1 / 2;
+
+  ...other styles
+}
+
+ul.cube-operation-stack {
+  grid-column-start: 2;
+  grid-row: 2 / -1;
+
+  ...other styles
+}
+
+/* mobile view */
+@media only screen and (max-width: 720px) {
+  .cube-operation-stack-header {
+    display: none;
+  }
+
+  ul.cube-operation-stack {
+    grid-row: 4;
+    grid-column: 1 / -1;
+
+    ...other styles
+  }
+```
 
 ## Operate and Simulate!
 
